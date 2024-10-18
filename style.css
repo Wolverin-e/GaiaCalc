@@ -11,6 +11,21 @@
     --t-rounded-sm: 10px;
 }
 
+@font-face {
+    font-family: 'F37 Zagma';
+    font-weight: normal;
+    font-style: normal;
+    src: url('/fonts/F37Zagma-Book.otf');
+}
+
+@font-face {
+    font-family: 'F37 Zagma';
+    font-weight: 600;
+    font-style: normal;
+    src: url('/fonts/F37Zagma-Bold.ttf');
+}
+
+
 #calc-app {
     color: var(--t-moss-green);
     font-family: "F37 Zagma", sans-serif;
@@ -100,6 +115,7 @@
 }
 
 #calc-app input, #calc-app select {
+    font-family: "F37 Zagma", sans-serif;
     border: none;
     color: var(--t-black);
     background: transparent;
