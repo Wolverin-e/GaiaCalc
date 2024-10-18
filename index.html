@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaia Calculator</title>
+
+  <!-- Imports -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="calc-app">
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>User Input</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Number of job boards used</td>
+          <td>
+            <select v-model="jobBoardsUsed"
+              :style="{ 'width': (!jobBoardsUsed ? '15' : jobBoardsUsed.toString().length + 3) + 'ch' }"
+              :class="{ 'placeholder-text': jobBoardsUsed === 0 }"
+            >
+              <option :value="0">
+                Select Number
+              </option>
+              <option v-for="opt in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]" :value="opt">
+                {{ opt }}
+              </option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Number of job postings per month</td>
+          <td>
+            <input type="number" v-model="jobPostingPerMonth" placeholder="e.g., 100" step="10"
+              :style="{ 'width': (!jobPostingPerMonth ? '7' : jobPostingPerMonth.toString().length + 1) + 'ch' }"
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Average number of applications per job posting</td>
+          <td>
+            <input type="number" v-model="avgAppsPerJobPosting" placeholder="e.g., 50" step="5"
+              :style="{ 'width': (!avgAppsPerJobPosting ? '6' : avgAppsPerJobPosting.toString().length + 1) + 'ch' }"
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Frequency of overlap noticed</td>
+          <td>
+            <select v-model="frequencyOfOverlap"
+              :style="{ 'width': (!frequencyOfOverlap ? '17' : frequencyOfOverlap.toString().length + 2) + 'ch' }"
+              :class="{ 'placeholder-text': frequencyOfOverlap === '' }"
+            >
+              <option :value="''">Select Frequency</option>
+              <option :value="'Rarely'">Rarely</option>
+              <option :value="'Occationaly'">Occationaly</option>
+              <option :value="'Often'">Often</option>
+              <option :value="'Very Often'">Very Often</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Monthly spend on job boards</td>
+          <td>
+            <span class="text-black">
+              {{ monthlySpendOnJobBoards ? '£' : '' }}
+              <input type="number" v-model="monthlySpendOnJobBoards" placeholder="e.g., 50,000" step="500"
+                :style="{ 'width': (!monthlySpendOnJobBoards ? '10' : monthlySpendOnJobBoards.toString().length + 1) + 'ch' }"
+              >
+            </span>
+          </td>
+        </tr>
+
+        <!-- Empty Space -->
+        <tr>
+          <td :style="{ 'border-left-style': 'none', 'height': '13px', 'padding': '0px' }"></td>
+          <td :style="{ 'border-left-style': 'none', 'border-right-style': 'none', 'height': '13px', 'padding': '0px' }"></td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <!-- Calculated values -->
+        <!-- <tr>
+          <td>Baseline Overlap Rate</td>
+          <td>
+            <template v-if="allValuesFilled">
+              {{ baselineOverlapRate.toLocaleString(2) }} %
+            </template>
+          </td>
+        </tr>
+        <tr>
+          <td>Adjusted Overlap Rate</td>
+          <td>
+            <template v-if="allValuesFilled">
+              {{ adjustedOverlapRate.toLocaleString(2) }} %
+            </template>
+          </td>
+        </tr> -->
+        <tr>
+          <td>Estimated Monthly Wasted Spend</td>
+          <td>
+            <template v-if="allValuesFilled">
+              £ {{ estimatedMonthlyWastedSpend.toLocaleString() }}
+            </template>
+          </td>
+        </tr>
+        <tr>
+          <td>Potential Monthly Savings</td>
+          <td>
+            <template v-if="allValuesFilled">
+              £ {{ potentialMonthlySavings.toLocaleString() }}
+            </template>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

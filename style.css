@@ -1,0 +1,144 @@
+:root {
+    --t-moss-green: rgb(0, 72, 66);
+    --t-moss-green-outline: rgba(0, 72, 66, 0.4);
+    --t-moss-green-light: #E7F7F2;
+    --t-black: rgb(19, 20, 25);
+    --t-black-placeholder: rgba(19, 20, 25, 0.65);
+    --t-card-stroke: #BCBCBC;
+    --t-font-w-xl: 600;
+    --t-font-w-md: 500;
+    --t-font-w-sm: 300;
+    --t-rounded-sm: 10px;
+}
+
+#calc-app {
+    color: var(--t-moss-green);
+    font-family: "F37 Zagma", sans-serif;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#calc-app table {
+    max-width: 710px;
+    width: 100%;
+    margin: 10px;
+
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#calc-app thead {
+    font-weight: var(--t-font-w-md);
+    font-size: 18px;
+}
+
+#calc-app thead th:first-child {
+    background-color: var(--t-moss-green-light);
+
+    /* border-top-left-radius: 20px; */
+    border: 0.25px solid var(--t-moss-green);
+    border-right-style: none;
+}
+
+#calc-app thead th:last-child {
+    background-color: var(--t-moss-green-light);
+
+    /* border-top-right-radius: 20px; */
+    border: 0.25px solid var(--t-moss-green);
+    border-left-style: none;
+}
+
+#calc-app tr:first-child th:first-child { border-top-left-radius: var(--t-rounded-sm); }
+#calc-app tr:first-child th:last-child { border-top-right-radius: var(--t-rounded-sm); }
+
+#calc-app tfoot tr:last-child td:first-child { border-bottom-left-radius: var(--t-rounded-sm); }
+#calc-app tfoot :last-child td:last-child { border-bottom-right-radius: var(--t-rounded-sm); }
+
+
+#calc-app tbody, #calc-app tfoot {
+    font-weight: var(--t-font-w-sm);
+    font-size: 16px;
+}
+
+#calc-app td:first-child, #calc-app th:first-child {
+    text-align: left;
+    padding-left: 28px;
+    padding-right: 28px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#calc-app td:first-child {
+    border: 0.25px solid var(--t-card-stroke);
+    border-top-style: none;
+    border-right-style: none;
+}
+
+#calc-app td:last-child {
+    border: 0.25px solid var(--t-card-stroke);
+    border-top-style: none;
+    width: 160px;
+}
+
+@media screen and (min-width: 650px) {
+    #calc-app td:last-child {
+        width: 220px;
+    }
+}
+
+#calc-app td:last-child, #calc-app th:last-child {
+    text-align: center;
+}
+
+#calc-app tfoot td:last-child {
+    font-weight: var(--t-font-w-xl);
+    color: var(--t-black);
+}
+
+#calc-app input, #calc-app select {
+    border: none;
+    color: var(--t-black);
+    background: transparent;
+    outline-color: var(--t-moss-green-outline);
+    outline-offset: 3px;
+
+    /* min-width: 100px; */
+
+    font-size: 16px;
+}
+
+#calc-app input::placeholder {
+    color: var(--t-black-placeholder);
+}
+
+#calc-app select {
+    background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iNiIgdmlld0JveD0iMCAwIDExIDYiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+DQo8cGF0aCBkPSJNNS41Nzk0MyA1Ljk5NDk2QzUuNzAxMzkgNS45NzcwMSA1LjgxNDcxIDUuOTIwNCA1LjkwMzMgNS44MzMxN0wxMC43OTE4IDEuMDU0QzEwLjg1MjggMS4wMDE1IDEwLjkwMjcgMC45MzY4MjYgMTAuOTM4NCAwLjg2Mzk3NUMxMC45NzQxIDAuNzkxMTIyIDEwLjk5NDcgMC43MTE2MjYgMTAuOTk5MSAwLjYzMDM0OUMxMS4wMDM1IDAuNTQ5MDczIDEwLjk5MTYgMC40Njc3MyAxMC45NjQgMC4zOTEzMjhDMTAuOTM2NCAwLjMxNDkyNyAxMC44OTM4IDAuMjQ1MDcyIDEwLjgzODcgMC4xODYwNDZDMTAuNzgzNyAwLjEyNzAyMSAxMC43MTc0IDAuMDgwMDc3MSAxMC42NDM5IDAuMDQ4MDg1N0MxMC41NzA0IDAuMDE2MDk0MiAxMC40OTEzIC0wLjAwMDI3Mjc5NSAxMC40MTEzIDQuMjQwMDdlLTA2QzEwLjMzMTQgMC4wMDAyODE3NTIgMTAuMjUyNCAwLjAxNzE4OTQgMTAuMTc5MSAwLjA0OTY5MDJDMTAuMTA1OCAwLjA4MjE5MDQgMTAuMDM5OCAwLjEyOTYwNiA5Ljk4NTE3IDAuMTg5MDEyTDUuNSA0LjU3NjE1TDEuMDE0ODQgMC4xODkwMTFDMC45NjAxOTEgMC4xMjk2MDQgMC44OTQyMDIgMC4wODIxOTAxIDAuODIwOTE5IDAuMDQ5Njg5NEMwLjc0NzYzNSAwLjAxNzE4ODEgMC42Njg2MDQgMC4wMDAyODA5MDggMC41ODg2NzQgMy4zODEzNWUtMDZDMC41MDg3NDMgLTAuMDAwMjc0MTQ1IDAuNDI5NTk5IDAuMDE2MDkzMyAwLjM1NjEwMSAwLjA0ODA4NDhDMC4yODI2MDEgMC4wODAwNzYyIDAuMjE2Mjk3IDAuMTI3MDE5IDAuMTYxMjU1IDAuMTg2MDQ1QzAuMTA2MjE0IDAuMjQ1MDcxIDAuMDYzNTk4MiAwLjMxNDkyNSAwLjAzNjAyMTcgMC4zOTEzMjdDMC4wMDg0NDQzMiAwLjQ2NzcyOSAtMC4wMDM1MTA5NSAwLjU0OTA3MiAwLjAwMDg4ODM0IDAuNjMwMzQ4QzAuMDA1Mjg3NjMgMC43MTE2MjUgMC4wMjU5NDk5IDAuNzkxMTIxIDAuMDYxNjA1OSAwLjg2Mzk3NEMwLjA5NzI2MjggMC45MzY4MjUgMC4xNDcxNjEgMS4wMDE0OSAwLjIwODIzOSAxLjA1NEw1LjA5NjcgNS44MzMxN0M1LjE2MDExIDUuODk1MjcgNS4yMzY0MSA1Ljk0MjA0IDUuMzE5OTcgNS45NzAwNEM1LjQwMzUzIDUuOTk4MDUgNS40OTIyIDYuMDA2NTcgNS41Nzk0MyA1Ljk5NDk2WiIgZmlsbD0iIzEzMTQxOSIvPg0KPC9zdmc+DQo=) no-repeat 95% 50%;
+    -moz-appearance: none; 
+    -webkit-appearance: none; 
+    appearance: none;
+    /* and then whatever styles you want*/
+}
+
+#calc-app input[type=number]::-webkit-outer-spin-button,
+#calc-app input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+#calc-app input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
+
+#calc-app .placeholder-text {
+    color: var(--t-black-placeholder);
+}
+
+#calc-app .text-black {
+    color: var(--t-black);
+}
