@@ -15,14 +15,14 @@
     font-family: 'F37 Zagma';
     font-weight: normal;
     font-style: normal;
-    src: url('/fonts/F37Zagma-Book.otf');
+    src: url('./fonts/F37Zagma-Book.ttf');
 }
 
 @font-face {
     font-family: 'F37 Zagma';
     font-weight: 600;
     font-style: normal;
-    src: url('/fonts/F37Zagma-Bold.ttf');
+    src: url('./fonts/F37Zagma-Bold.ttf');
 }
 
 
