@@ -22,19 +22,24 @@
     font-family: 'F37 Zagma';
     font-weight: 600;
     font-style: normal;
-    src: url('./fonts/F37Zagma-Bold.ttf');
+    src: url('./fonts/F37Zagma-Bold.woff2');
 }
 
 
 #calc-app {
     color: var(--t-moss-green);
     font-family: "F37 Zagma", sans-serif;
-    
+
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     width: 100vw;
+
+    /* To make fonts look similar to figma */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
 }
 
 #calc-app table {
@@ -116,6 +121,11 @@
 
 #calc-app input, #calc-app select {
     font-family: "F37 Zagma", sans-serif;
+    /* To make fonts look similar to figma */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: never;
+
     border: none;
     color: var(--t-black);
     background: transparent;
