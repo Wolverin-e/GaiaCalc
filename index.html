@@ -23,87 +23,71 @@
             <th>User Input</th>
           </tr>
         </thead>
+
         <tbody>
           <tr>
-            <td>Number of job boards used</td>
+            <td>Type</td>
             <td>
               <select
-                v-model="jobBoardsUsed"
-                ref="jobBoardsUsedSelect"
-                :style="{ 'width': (!jobBoardsUsed ? '14' : jobBoardsUsed.toString().length + 3) + 'ch' }"
-                :class="{ 'placeholder-text': jobBoardsUsed === 0 }"
+                v-model="typeSelected"
+                ref="typeSelect"
+                :style="{ 'width': (
+                  !typeSelected ? '11' :
+                    typeSelected === 'Managed' ? 9 : typeSelected.toString().length + 0.5
+                ) + 'ch' }"
+                :class="[{ 'placeholder-text': typeSelected === null }]"
               >
-                <option :value="0">
-                  Select Number
-                </option>
-                <option v-for="opt in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]" :value="opt">
-                  {{ opt }}
-                </option>
+                <option :value="null" selected>Select Type</option>
+                <option :value="'Managed'">Managed</option>
+                <option :value="'Self Serve'">Self Serve</option>
+                <option :value="'Pilot'">Pilot</option>
               </select>
             </td>
           </tr>
 
           <tr>
-            <td>Number of job postings per month</td>
+            <td>Number of Employees</td>
             <td>
               <input
-                v-model="jobPostingPerMonth"
-                ref="jobPostingPerMonthInput"
+                v-model="numberOfEmployees"
+                ref="numberOfEmployeesInput"
                 type="number"
                 placeholder="e.g., 100"
                 step="10"
-                :style="{ 'width': (!jobPostingPerMonth ? '7' : jobPostingPerMonth.toString().length + 0.2) + 'ch' }"
+                :style="{ 'width': (!numberOfEmployees ? '7' : numberOfEmployees.toString().length + 0.2) + 'ch' }"
+                :class="{ 'placeholder-text': numberOfEmployees === null }"
               >
             </td>
           </tr>
 
           <tr>
-            <td>Average number of applications per job posting</td>
+            <td>Number of Ads</td>
             <td>
-              <input
-                v-model="avgAppsPerJobPosting"
-                ref="avgAppsPerJobPostingInput"
-                type="number"
-                placeholder="e.g., 50"
-                step="5"
-                :style="{ 'width': (!avgAppsPerJobPosting ? '6' : avgAppsPerJobPosting.toString().length + 0.2) + 'ch' }"
+              <select v-model="numberOfAdsSelected"
+                ref="numberOfAdsSelect"
+                :style="{ 'width': (!numberOfAdsSelected ? '20' : numberOfAdsSelected.toString().length + 1.5) + 'ch' }"
+                :class="{ 'placeholder-text': numberOfAdsSelected === null }"
               >
-            </td>
-          </tr>
-
-          <tr>
-            <td>Frequency of overlap noticed</td>
-            <td>
-              <select
-                v-model="frequencyOfOverlap"
-                ref="frequencyOfOverlapSelect"
-                :style="{ 'width': (!frequencyOfOverlap ? '16' : frequencyOfOverlap.toString().length + 1.2) + 'ch' }"
-                :class="{ 'placeholder-text': frequencyOfOverlap === '' }"
-              >
-                <option :value="''">Select Frequency</option>
-                <option :value="'Rarely'">Rarely</option>
-                <option :value="'Occasionally'">Occasionally</option>
-                <option :value="'Often'">Often</option>
-                <option :value="'Very Often'">Very Often</option>
+                <option :value="null">Select Number of Ads</option>
+                <option v-for= "opt in numberOfAdsOpts" :value="opt"> {{ opt }} </option>  
               </select>
             </td>
           </tr>
 
           <tr>
-            <td>Monthly spend on job boards</td>
+            <td>AI Credits</td>
             <td>
-              <span class="text-black">
-                {{ monthlySpendOnJobBoards ? '£' : '' }}
-                <input
-                  v-model="monthlySpendOnJobBoards"
-                  ref="monthlySpendOnJobBoardsInput"
-                  type="number"
-                  placeholder="e.g., 50,000"
-                  :style="{ 'width': (!monthlySpendOnJobBoards ? '10' : monthlySpendOnJobBoards.toString().length + 0.2) + 'ch' }"
-                >
-              </span>
+              <select
+                v-model="aiCreditsSelected"
+                :style="{ 'width': (aiCreditsSelected === null ? '16' : aiCreditsSelected.toString().length + 2) + 'ch' }"
+                :class="{ 'placeholder-text': aiCreditsSelected === null }"
+              >
+                <option :value="null">Select Ai Credits</option>
+                <option v-for= "opt in aiCreditsOpts" :key="index" :value="opt"> {{ opt }} </option>
+              </select>
             </td>
           </tr>
+
         </tbody>
   
         <tfoot v-if="onceSubmittedSuccessfully">
@@ -112,52 +96,73 @@
             <td :style="{ 'border-left-style': 'none', 'height': '13px', 'padding': '0px' }"></td>
             <td :style="{ 'border-left-style': 'none', 'border-right-style': 'none', 'height': '13px', 'padding': '0px' }"></td>
           </tr>
+
           <!-- Calculated values -->
-          <!-- <tr>
-            <td>Baseline Overlap Rate</td>
+          <tr>
+            <td>Monthly Price Core Solution (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
-                {{ baselineOverlapRate.toLocaleString(2) }} %
+                {{
+                  monthlyPricingCoreSolution
+                    ? (typeof monthlyPricingCoreSolution === "string")
+                      ? monthlyPricingCoreSolution
+                      : "£ " + monthlyPricingCoreSolution.toLocaleString()
+                    : "-"
+                }}
               </template>
             </td>
           </tr>
+
           <tr>
-            <td>Adjusted Overlap Rate</td>
+            <td>Monthly Price AI Extras (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
-                {{ adjustedOverlapRate.toLocaleString(2) }} %
-              </template>
-            </td>
-          </tr> -->
-          <tr>
-            <td>Estimated wasted spend (monthly)</td>
-            <td>
-              <template v-if="allValuesFilled">
-                £ {{ estimatedMonthlyWastedSpend.toLocaleString() }}
+                {{ monthlyPricingAIExtras ? "£ " + monthlyPricingAIExtras.toLocaleString() : "-" }}
               </template>
             </td>
           </tr>
+
           <tr>
-            <td>Estimated wasted spend (annual)</td>
+            <td>Quarterly Price Pilot (exc vat) (discounted)</td>
             <td>
               <template v-if="allValuesFilled">
-                £ {{ (estimatedMonthlyWastedSpend * 12).toLocaleString() }}
+                {{ quarterlyPricingPilot ? "£ " + quarterlyPricingPilot.toLocaleString() : "-" }}
               </template>
             </td>
           </tr>
+
           <tr>
-            <td>Potential savings (monthly)</td>
+            <td>Yearly Price Managed (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
-                £ {{ potentialMonthlySavings.toLocaleString() }}
+                {{ yearlyPricingManaged ? "£ " + yearlyPricingManaged.toLocaleString() : "-" }}
               </template>
             </td>
           </tr>
+
           <tr>
-            <td>Potential savings (annual)</td>
+            <td>AI Credits with Core Solution</td>
             <td>
               <template v-if="allValuesFilled">
-                £ {{ (potentialMonthlySavings * 12).toLocaleString() }}
+                {{ aiCreditsWithCoreSolution ? aiCreditsWithCoreSolution.toLocaleString() : "-" }}
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td>AI Credits Additional Purchased</td>
+            <td>
+              <template v-if="allValuesFilled">
+                {{ aiCreditsAdditionalPurchased ? aiCreditsAdditionalPurchased.toLocaleString() : "-" }}
+              </template>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Total AI Credits</td>
+            <td>
+              <template v-if="allValuesFilled">
+                {{ totalAICredits ? totalAICredits.toLocaleString() : "-" }}
               </template>
             </td>
           </tr>
