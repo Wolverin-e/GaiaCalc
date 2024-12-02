@@ -104,9 +104,9 @@
               <template v-if="allValuesFilled">
                 {{
                   monthlyPricingCoreSolution
-                    ? (typeof monthlyPricingCoreSolution === "string")
-                      ? monthlyPricingCoreSolution
-                      : "£ " + monthlyPricingCoreSolution.toLocaleString()
+                    ? (typeof monthlyPricingCoreSolution === "number")
+                      ? "£ " + Math.round(monthlyPricingCoreSolution).toLocaleString()
+                      : monthlyPricingCoreSolution
                     : "-"
                 }}
               </template>
@@ -126,7 +126,12 @@
             <td>Quarterly Price Pilot (exc vat) (discounted)</td>
             <td>
               <template v-if="allValuesFilled">
-                {{ quarterlyPricingPilot ? "£ " + quarterlyPricingPilot.toLocaleString() : "-" }}
+                {{ quarterlyPricingPilot 
+                  ? (typeof quarterlyPricingPilot === "number")
+                    ? "£ " + Math.round(quarterlyPricingPilot).toLocaleString()
+                    : quarterlyPricingPilot
+                  : "-"
+                }}
               </template>
             </td>
           </tr>

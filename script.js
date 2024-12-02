@@ -37,7 +37,7 @@ createApp({
 
             // Sample data for 'Pricing Pilot', 'Pricing Managed', and 'Pricing Self Serve'
             const pricingManaged = {
-                1000: 2813,
+                1000: 2812.50,
                 5000: 5625,
                 10000: 11250,
                 15000: 22500,
@@ -61,8 +61,8 @@ createApp({
             }
 
             const pricingPilot = {
-                1000: 1856,
-                5000: 3713,
+                1000: 1856.25,
+                5000: 3712.50,
                 10000: 7425,
                 15000: 14850,
                 20000: 29700,
