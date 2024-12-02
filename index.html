@@ -82,7 +82,7 @@
                 :style="{ 'width': (aiCreditsSelected === null ? '16' : aiCreditsSelected.toString().length + 2) + 'ch' }"
                 :class="{ 'placeholder-text': aiCreditsSelected === null }"
               >
-                <option :value="null">Select Ai Credits</option>
+                <option :value="null">Select AI Credits</option>
                 <option v-for= "opt in aiCreditsOpts" :key="index" :value="opt"> {{ opt }} </option>
               </select>
             </td>
