@@ -349,6 +349,85 @@ createApp({
             onceSubmittedSuccessfully.value = true
         }
 
+        // For info tooltip
+        const adsInfoIcon = ref(null)
+
+        const initAdsTooltip = () => {
+            if(!adsInfoIcon.value) return
+
+            const shiftRightByPx = 60
+
+            const adsInfoTooltipDiv = document.createElement('div')
+            adsInfoTooltipDiv.id = 'info-tooltip'
+            adsInfoTooltipDiv.setAttribute('role', 'tooltip')
+            document.body.appendChild(adsInfoTooltipDiv)
+
+            const adsArrowDiv = document.createElement('div')
+            adsArrowDiv.className = 'arrow'
+            adsInfoTooltipDiv.appendChild(document.createTextNode(`AI credits = Number of ads`))
+            adsInfoTooltipDiv.appendChild(document.createElement(`br`))
+            adsInfoTooltipDiv.appendChild(document.createTextNode(`1,000 AI credits = 1 ad`))
+            adsInfoTooltipDiv.appendChild(document.createElement(`br`))
+            adsInfoTooltipDiv.appendChild(document.createTextNode(`25,000 AI credits = 25 ads`))
+            adsInfoTooltipDiv.appendChild(adsArrowDiv)
+
+            const updateAdsInfoTooltip = (elem = adsInfoIcon.value, tooltipDiv = adsInfoTooltipDiv, arrowDiv = adsArrowDiv) => {
+                computePosition(elem, tooltipDiv, {
+                    placement: 'bottom',
+                    middleware: [
+                        offset(7),
+                        arrow({ element: arrowDiv }),
+                    ]
+                }).then(({x, y, placement, middlewareData}) => {
+                    Object.assign(tooltipDiv.style, {
+                        left: `${x + shiftRightByPx}px`,
+                        top: `${y}px`,
+                    })
+    
+                    const { x: arrowX, y: arrowY } = middlewareData.arrow
+    
+                    const staticSide = {
+                        top: 'bottom',
+                        right: 'left',
+                        bottom: 'top',
+                        left: 'right',
+                    }[placement.split('-')[0]];
+    
+                    Object.assign(arrowDiv.style, {
+                        left: arrowX != null ? `${arrowX - shiftRightByPx}px` : '',
+                        top: arrowY != null ? `${arrowY}px` : '',
+                        right: '',
+                        bottom: '',
+                        [staticSide]: '-4px',
+                    });
+                })
+            }
+
+            const displayTooltip = () => {
+                setTimeout(() => {
+                    adsInfoTooltipDiv.style.display = 'block'
+                    updateAdsInfoTooltip()
+                }, 200)
+            }
+
+            const hideTooltip = () => {
+                setTimeout(() => adsInfoTooltipDiv.style.display = 'none', 400)
+            }
+
+            [
+                ['mouseenter', displayTooltip],
+                ['mouseleave', hideTooltip],
+                ['focus', displayTooltip],
+                ['blur', hideTooltip],
+            ].forEach(([event, listener]) => {
+                adsInfoIcon.value.addEventListener(event, listener);
+            });
+        }
+
+        onMounted(() => {
+            initAdsTooltip()
+        })
+
 
         return {
             // State
@@ -378,6 +457,9 @@ createApp({
             onSubmit,
             isAiCreditsUnnecessary,
             isNumberOfAdsUnnecessary,
+
+            // Info Tooltip
+            adsInfoIcon,
         }
     }
 }).mount('#calc-app')

@@ -303,3 +303,35 @@ body {
     transform: rotate(45deg);
 }
 
+#info-tooltip {
+    display: none;
+
+    width: max-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: var(--t-moss-green-light);
+    color: var(--t-moss-green);
+    padding: 7px;
+    border-radius: 4px;
+    border: #14B482 solid 0.5px;
+
+    font-family: var(--t-font-family);
+    font-size: 12px;
+    line-height: 13.5px;
+
+    box-shadow: 0px 4px 13px 0px #00000021;
+}
+
+#info-tooltip .arrow {
+    position: absolute;
+    background: var(--t-moss-green-light);
+    width: 8px;
+    height: 8px;
+    transform: rotate(45deg);
+
+    border: #14B482 solid;
+    border-width: 0.5px 0px 0px 0.5px;
+}
+
+
