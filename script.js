@@ -246,6 +246,16 @@ createApp({
         })
 
 
+        // For Disabling unnecessary fields
+        const isAiCreditsUnnecessary = computed(() => {
+            return typeSelected.value === 'Managed' || typeSelected.value === 'Pilot'
+        })
+
+        const isNumberOfAdsUnnecessary = computed(() => {
+            return typeSelected.value === 'Managed' || typeSelected.value === 'Pilot'
+        })
+
+
         // Form validation
         const onceSubmittedSuccessfully = ref(false)
         const typeSelect = ref(null)
@@ -323,7 +333,7 @@ createApp({
         const allValuesFilled = computed(() => {
             if(!typeSelected.value) return false
             if(!numberOfEmployees.value) return false
-            if(!numberOfAdsSelected.value) return false
+            if(!isNumberOfAdsUnnecessary.value && !numberOfAdsSelected.value) return false
 
             return true
         })
@@ -334,7 +344,7 @@ createApp({
 
             if(typeSelected.value === null) return showInvalid(typeSelect.value, typeSelect.value.parentElement)
             if(isEmpty(numberOfEmployees.value)) return showInvalid(numberOfEmployeesInput.value, numberOfEmployeesInput.value.parentElement)
-            if(numberOfAdsSelected.value === null) return showInvalid(numberOfAdsSelect.value, numberOfAdsSelect.value.parentElement)
+            if((!isNumberOfAdsUnnecessary.value) && numberOfAdsSelected.value === null) return showInvalid(numberOfAdsSelect.value, numberOfAdsSelect.value.parentElement)
 
             onceSubmittedSuccessfully.value = true
         }
@@ -366,6 +376,8 @@ createApp({
             numberOfAdsSelect,
             allValuesFilled,
             onSubmit,
+            isAiCreditsUnnecessary,
+            isNumberOfAdsUnnecessary,
         }
     }
 }).mount('#calc-app')

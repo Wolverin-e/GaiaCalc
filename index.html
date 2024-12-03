@@ -67,6 +67,7 @@
                 ref="numberOfAdsSelect"
                 :style="{ 'width': (!numberOfAdsSelected ? '20' : numberOfAdsSelected.toString().length + 1.5) + 'ch' }"
                 :class="{ 'placeholder-text': numberOfAdsSelected === null }"
+                :disabled="isNumberOfAdsUnnecessary"
               >
                 <option :value="null">Select Number of Ads</option>
                 <option v-for= "opt in numberOfAdsOpts" :value="opt"> {{ opt }} </option>  
@@ -81,6 +82,7 @@
                 v-model="aiCreditsSelected"
                 :style="{ 'width': (aiCreditsSelected === null ? '16' : aiCreditsSelected.toString().length + 2) + 'ch' }"
                 :class="{ 'placeholder-text': aiCreditsSelected === null }"
+                :disabled="isAiCreditsUnnecessary"
               >
                 <option :value="null">Select AI Credits</option>
                 <option v-for= "opt in aiCreditsOpts" :key="index" :value="opt"> {{ opt }} </option>

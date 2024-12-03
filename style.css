@@ -210,6 +210,11 @@ body {
     outline: none !important;
 }
 
+#calc-app select:disabled {
+    opacity: 30%;
+    outline: none !important;
+}
+
 #calc-app td:has(.invalid):focus-within input::placeholder {
     color: var(--t-danger-light) !important;
 }
