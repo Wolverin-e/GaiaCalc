@@ -1,5 +1,6 @@
 :root {
     --t-moss-green: rgb(0, 72, 66);
+    --t-moss-green-disabled: rgba(0, 72, 66, 0.3);
     --t-moss-green-dark: rgb(0, 61, 56);
     --t-moss-green-text: #03FFAD;
     --t-danger: rgb(235,77, 80);

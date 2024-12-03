@@ -37,16 +37,16 @@
                 ) + 'ch' }"
                 :class="[{ 'placeholder-text': typeSelected === null }]"
               >
-                <option :value="null" selected>Select Type</option>
+                <option :value="null" selected>Select type</option>
                 <option :value="'Managed'">Managed</option>
-                <option :value="'Self Serve'">Self Serve</option>
+                <option :value="'Self Serve'">Self serve</option>
                 <option :value="'Pilot'">Pilot</option>
               </select>
             </td>
           </tr>
 
           <tr>
-            <td>Number of Employees</td>
+            <td>Number of employees</td>
             <td>
               <input
                 v-model="numberOfEmployees"
@@ -61,7 +61,9 @@
           </tr>
 
           <tr>
-            <td>Number of Ads</td>
+            <td :style="{ 'color': isNumberOfAdsUnnecessary ? 'var(--t-moss-green-disabled)' : 'var(--t-moss-green)' }">
+              Number of ads
+            </td>
             <td>
               <select v-model="numberOfAdsSelected"
                 ref="numberOfAdsSelect"
@@ -69,14 +71,16 @@
                 :class="{ 'placeholder-text': numberOfAdsSelected === null }"
                 :disabled="isNumberOfAdsUnnecessary"
               >
-                <option :value="null">Select Number of Ads</option>
+                <option :value="null">Select number of ads</option>
                 <option v-for= "opt in numberOfAdsOpts" :value="opt"> {{ opt }} </option>  
               </select>
             </td>
           </tr>
 
           <tr>
-            <td>AI Credits</td>
+            <td :style="{ 'color': isAiCreditsUnnecessary ? 'var(--t-moss-green-disabled)' : 'var(--t-moss-green)' }">
+              AI credits
+            </td>
             <td>
               <select
                 v-model="aiCreditsSelected"
@@ -84,7 +88,7 @@
                 :class="{ 'placeholder-text': aiCreditsSelected === null }"
                 :disabled="isAiCreditsUnnecessary"
               >
-                <option :value="null">Select AI Credits</option>
+                <option :value="null">Select AI credits</option>
                 <option v-for= "opt in aiCreditsOpts" :key="index" :value="opt"> {{ opt }} </option>
               </select>
             </td>
@@ -101,7 +105,7 @@
 
           <!-- Calculated values -->
           <tr>
-            <td>Monthly Price Core Solution (exc vat)</td>
+            <td>Monthly price core solution (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
                 {{
@@ -116,7 +120,7 @@
           </tr>
 
           <tr>
-            <td>Monthly Price AI Extras (exc vat)</td>
+            <td>Monthly price AI extras (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
                 {{ monthlyPricingAIExtras ? "£ " + monthlyPricingAIExtras.toLocaleString() : "-" }}
@@ -125,7 +129,7 @@
           </tr>
 
           <tr>
-            <td>Quarterly Price Pilot (exc vat) (discounted)</td>
+            <td>Quarterly price pilot (exc vat) (discounted)</td>
             <td>
               <template v-if="allValuesFilled">
                 {{ quarterlyPricingPilot 
@@ -139,7 +143,7 @@
           </tr>
 
           <tr>
-            <td>Yearly Price Managed (exc vat)</td>
+            <td>Yearly price managed (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
                 {{ yearlyPricingManaged ? "£ " + yearlyPricingManaged.toLocaleString() : "-" }}
@@ -148,7 +152,7 @@
           </tr>
 
           <tr>
-            <td>AI Credits with Core Solution</td>
+            <td>AI credits with core solution</td>
             <td>
               <template v-if="allValuesFilled">
                 {{ aiCreditsWithCoreSolution ? aiCreditsWithCoreSolution.toLocaleString() : "-" }}
@@ -157,7 +161,7 @@
           </tr>
 
           <tr>
-            <td>AI Credits Additional Purchased</td>
+            <td>AI credits additional purchased</td>
             <td>
               <template v-if="allValuesFilled">
                 {{ aiCreditsAdditionalPurchased ? aiCreditsAdditionalPurchased.toLocaleString() : "-" }}
@@ -166,7 +170,7 @@
           </tr>
 
           <tr>
-            <td>Total AI Credits</td>
+            <td>Total AI credits</td>
             <td>
               <template v-if="allValuesFilled">
                 {{ totalAICredits ? totalAICredits.toLocaleString() : "-" }}
