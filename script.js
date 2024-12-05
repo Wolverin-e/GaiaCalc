@@ -5,14 +5,31 @@ const {
     ref,
     computed,
     onMounted,
+    watch,
+    nextTick,
 } = Vue
 
 createApp({
     setup() {
         const typeSelected = ref(null)
+        const numberOfEmployeesText = ref('')
         const numberOfEmployees = ref('')
         const aiCreditsSelected = ref(null)
         const numberOfAdsSelected = ref(null)
+
+        // For cheeky comma in numberOfEmployees Field: 1000000 -> 1,000,000
+        watch(numberOfEmployeesText, (newValue) => {
+            const result = newValue.replace(/\D/g, "")
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+            nextTick(() => {
+                numberOfEmployeesText.value = result
+            });
+
+            // Maintain numberOfEmployees numeric depending upon the textual value
+            const numericString = result.replace(/\D/g, "")
+            numberOfEmployees.value = numericString !== "" ? Math.floor(numericString || 0) : ""
+        })
 
         // Options for Select
         const numberOfAdsOpts = [1, 25, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350, 375, 400, 425, 450, 475, 500, 525, 550, 575, 600, 625, 650, 675, 700, 725, 750, 775, 800, 825, 850, 875, 900, 925, 950, 975, 1000];
@@ -85,7 +102,7 @@ createApp({
             }
 
             const pricingSelfServe = {
-                1: "FREEMIUM",
+                1: "Freemium",
                 25: 799,
                 75: 1899,
                 100: 2499,
@@ -247,6 +264,10 @@ createApp({
 
 
         // For Disabling unnecessary fields
+        const isNumberOfEmployeesUnnecessary = computed(() => {
+            return typeSelected.value === 'Self Serve'
+        })
+
         const isAiCreditsUnnecessary = computed(() => {
             return typeSelected.value === 'Managed' || typeSelected.value === 'Pilot'
         })
@@ -332,7 +353,7 @@ createApp({
 
         const allValuesFilled = computed(() => {
             if(!typeSelected.value) return false
-            if(!numberOfEmployees.value) return false
+            if(!isNumberOfEmployeesUnnecessary && !numberOfEmployees.value) return false
             if(!isNumberOfAdsUnnecessary.value && !numberOfAdsSelected.value) return false
 
             return true
@@ -343,7 +364,7 @@ createApp({
             const isEmpty = x => x === undefined || x === ""
 
             if(typeSelected.value === null) return showInvalid(typeSelect.value, typeSelect.value.parentElement)
-            if(isEmpty(numberOfEmployees.value)) return showInvalid(numberOfEmployeesInput.value, numberOfEmployeesInput.value.parentElement)
+            if((!isNumberOfEmployeesUnnecessary.value) && isEmpty(numberOfEmployees.value)) return showInvalid(numberOfEmployeesInput.value, numberOfEmployeesInput.value.parentElement)
             if((!isNumberOfAdsUnnecessary.value) && numberOfAdsSelected.value === null) return showInvalid(numberOfAdsSelect.value, numberOfAdsSelect.value.parentElement)
 
             onceSubmittedSuccessfully.value = true
@@ -432,6 +453,7 @@ createApp({
         return {
             // State
             typeSelected,
+            numberOfEmployeesText,
             numberOfEmployees,
             aiCreditsSelected,
             numberOfAdsOpts,
