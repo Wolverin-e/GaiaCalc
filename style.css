@@ -247,39 +247,6 @@ body {
     transform: scale(95%);
 }
 
-#get-recommendations-button {
-    padding: 14px 30px 14px 30px;
-    border: none;
-    border-radius: 4px;
-    color: var(--t-moss-green-text);
-    background-color: var(--t-moss-green);
-    margin-top: 43px;
-    cursor: pointer;
-
-    font-family: var(--t-font-family);
-    font-weight: 500 !important;
-    font-size: 20px;
-    text-decoration: none;
-
-    transition: background-color, transform;
-    transition-duration: 150ms;
-}
-
-#get-recommendations-button:focus {
-    outline-style: solid;
-    outline-color: var(--t-moss-green-outline);
-    outline-width: 2px;
-    outline-offset: 2px;
-}
-
-#get-recommendations-button:hover {
-    background-color: var(--t-moss-green-dark);
-}
-
-#get-recommendations-button:active {
-    transform: scale(95%);
-}
-
 /* For tooltips */
 #tooltip {
     width: max-content;
