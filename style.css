@@ -10,15 +10,14 @@
     --t-black: rgb(19, 20, 25);
     --t-black-placeholder: rgba(19, 20, 25, 0.65);
     --t-card-stroke: #BCBCBC;
-    --t-font-w-xl: 600;
-    --t-font-w-md: 500;
-    --t-font-w-sm: 300;
+    --t-font-w-xl: 600; /* Bold/Regular */
+    --t-font-w-sm: normal; /* Book */
     --t-rounded-sm: 10px;
 
     --t-font-family: "F37 Zagma", sans-serif;
 }
 
-body {
+body, h1 {
     padding: 0px;
     margin: 0px;
 }
@@ -30,12 +29,13 @@ body {
     src: url('./fonts/F37Zagma-Book.ttf');
 }
 
-@font-face {
+/* For this font face, Bold & Regular look the same */
+/* @font-face {
     font-family: 'F37 Zagma';
     font-weight: 500;
     font-style: normal;
     src: url('./fonts/F37Zagma-Regular.otf');
-}
+} */
 
 @font-face {
     font-family: 'F37 Zagma';
@@ -44,16 +44,24 @@ body {
     src: url('./fonts/F37Zagma-Bold.woff2');
 }
 
+#calc-app h1 {
+    font-size: 2em;
+    text-align: center;
+}
 
 #calc-app {
     color: var(--t-moss-green);
     font-family: var(--t-font-family);
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    gap: 40px;
+    min-height: 100vh;
     width: 100vw;
+
+    padding-top: 80px;
 
     /* To make fonts look similar to figma */
     -webkit-font-smoothing: antialiased;
@@ -77,7 +85,7 @@ body {
 }
 
 #calc-app thead {
-    font-weight: var(--t-font-w-md);
+    font-weight: var(--t-font-w-xl);
     font-size: 18px;
 }
 
@@ -111,6 +119,7 @@ body {
 
 #calc-app td:first-child, #calc-app th:first-child {
     text-align: left;
+    vertical-align: top;
     padding-left: 28px;
     padding-right: 28px;
     padding-top: 12px;
@@ -127,21 +136,35 @@ body {
     border: 0.25px solid var(--t-card-stroke);
     border-top-style: none;
     width: 160px;
+
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 @media screen and (min-width: 650px) {
+    #calc-app td:first-child {
+        width: 384px;
+    }
+
     #calc-app td:last-child {
-        width: 220px;
+        width: 326px;
     }
 }
 
 #calc-app td:last-child, #calc-app th:last-child {
-    text-align: center;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #calc-app tfoot td:last-child {
     font-weight: var(--t-font-w-xl);
     color: var(--t-black);
+}
+
+#calc-app tfoot td.text-row {
+    font-weight: var(--t-font-w-sm);
+    font-size: 18px;
 }
 
 #calc-app table input, #calc-app table select {

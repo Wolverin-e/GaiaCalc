@@ -15,6 +15,10 @@
 
 <body>
   <div id="calc-app">
+    <h1>
+      Let&rsquo;s calculate your investment!
+    </h1>
+
     <form onsubmit="return false" id="calc-form">
       <table>
         <thead>
@@ -183,6 +187,36 @@
               </template>
             </td>
           </tr>
+
+          <!-- Bottom 3 rows for Managed & Pilot -->
+          <template v-if="typeSelected === 'Pilot' || typeSelected === 'Managed'">
+            <tr>
+              <td>Products</td>
+              <td class="text-row">
+                GaiaAttract <br/>
+                GaiaMatch <br/>
+                GaiaPages <br/>
+                GaiaChat <br/>
+                GaiaTrack
+              </td>
+            </tr>
+
+            <tr>
+              <td>Features</td>
+              <td class="text-row">
+                On demand creative studio,
+                strategic support, and 
+                tech integration support
+              </td>
+            </tr>
+
+            <tr>
+              <td>Support</td>
+              <td class="text-row">
+                Dedicated CSM & Creative Lead
+              </td>
+            </tr>
+          </template>
         </tfoot>
       </table>
 
