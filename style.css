@@ -62,6 +62,9 @@ body, h1 {
     width: 100vw;
 
     padding-top: 80px;
+    padding-bottom: 80px;
+
+    box-sizing: border-box;
 
     /* To make fonts look similar to figma */
     -webkit-font-smoothing: antialiased;
@@ -147,7 +150,8 @@ body, h1 {
     }
 
     #calc-app td:last-child {
-        width: 326px;
+        min-width: 326px;
+        box-sizing: border-box;
     }
 }
 
