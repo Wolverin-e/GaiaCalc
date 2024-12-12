@@ -10,11 +10,11 @@
     --t-black: rgb(19, 20, 25);
     --t-black-placeholder: rgba(19, 20, 25, 0.65);
     --t-card-stroke: #BCBCBC;
-    --t-font-w-xl: 600; /* Bold/Regular */
+    --t-font-w-xl: 700; /* Bold/Regular */
     --t-font-w-sm: normal; /* Book */
     --t-rounded-sm: 10px;
 
-    --t-font-family: "F37 Zagma", sans-serif;
+    --t-font-family: "F 37 Zagma", "F37 Zagma", Arial, sans-serif;
 }
 
 body, h1 {
@@ -39,13 +39,13 @@ body, h1 {
 
 @font-face {
     font-family: 'F37 Zagma';
-    font-weight: 600;
+    font-weight: 700;
     font-style: normal;
     src: url('./fonts/F37Zagma-Bold.woff2');
 }
 
 /* For Scrollbar modifications */
-#section {
+#calc-section {
     overflow-y: auto;
     overflow-x: hidden;
 
@@ -54,11 +54,11 @@ body, h1 {
     width: 100vw;
 }
 
-#section::-webkit-scrollbar {
+#calc-section::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 10px;
 }
-#section::-webkit-scrollbar-thumb {
+#calc-section::-webkit-scrollbar-thumb {
     border-radius: 4px;
     background-color: rgba(0,0,0,.4);
     box-shadow: 0 0 1px rgba(255,255,255,.5);
@@ -82,8 +82,8 @@ body, h1 {
     min-height: 100vh;
     width: 100vw;
 
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 
     box-sizing: border-box;
 
