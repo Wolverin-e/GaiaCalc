@@ -21,6 +21,10 @@ body, h1 {
     padding: 0px;
     margin: 0px;
 }
+body {
+    width: 100vw;
+    height: 100vh;
+}
 
 @font-face {
     font-family: 'F37 Zagma';
@@ -51,7 +55,7 @@ body, h1 {
 
     max-height: 100vh;
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 }
 
 #calc-section::-webkit-scrollbar {
@@ -80,7 +84,7 @@ body, h1 {
     align-items: center;
     gap: 40px;
     min-height: 100vh;
-    width: 100vw;
+    width: 100%;
 
     padding-top: 10px;
     padding-bottom: 10px;
