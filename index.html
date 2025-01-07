@@ -57,7 +57,7 @@
                 v-model="numberOfEmployeesText"
                 ref="numberOfEmployeesInput"
                 type="text"
-                placeholder="e.g., 100"
+                placeholder="e.g. 100"
                 step="10"
                 :style="{ 'width': (!numberOfEmployees ? '7' : numberOfEmployeesText.toString().length) + 'ch' }"
                 :class="{ 'placeholder-text': numberOfEmployees === null }"
@@ -139,7 +139,7 @@
             </td>
           </tr>
 
-          <tr v-if="typeSelected !== 'Self Serve'">
+          <tr v-if="typeSelected !== 'Self Serve' && typeSelected !== 'Managed'">
             <td>Quarterly price pilot (exc vat) (discounted)</td>
             <td>
               <template v-if="allValuesFilled">

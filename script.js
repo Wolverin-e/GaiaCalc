@@ -11,7 +11,7 @@ const {
 
 createApp({
     setup() {
-        const typeSelected = ref(null)
+        const typeSelected = ref('Managed')
         const numberOfEmployeesText = ref('')
         const numberOfEmployees = ref('')
         const aiCreditsSelected = ref(null)
