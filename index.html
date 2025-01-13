@@ -45,7 +45,7 @@
                 <option :value="null" selected>Select type</option>
                 <option :value="'Managed'">Managed</option>
                 <!-- <option :value="'Self Serve'">Self serve</option> -->
-                <option :value="'Pilot'">Pilot</option>
+                <option :value="'Pilot'" :disabled="numberOfEmployees > 0 && numberOfEmployees < 10">Pilot</option>
               </select>
             </td>
           </tr>

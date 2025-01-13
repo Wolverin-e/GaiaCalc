@@ -365,10 +365,34 @@ createApp({
 
             if(typeSelected.value === null) return showInvalid(typeSelect.value, typeSelect.value.parentElement)
             if((!isNumberOfEmployeesUnnecessary.value) && isEmpty(numberOfEmployees.value)) return showInvalid(numberOfEmployeesInput.value, numberOfEmployeesInput.value.parentElement)
+            if((typeSelected.value === 'Pilot') && (!isNumberOfEmployeesUnnecessary.value) && numberOfEmployees.value < 10) {
+                return showInvalid(numberOfEmployeesInput.value, numberOfEmployeesInput.value.parentElement, "Please enter a value of 10 or above.")
+            }
             if((!isNumberOfAdsUnnecessary.value) && numberOfAdsSelected.value === null) return showInvalid(numberOfAdsSelect.value, numberOfAdsSelect.value.parentElement)
 
             onceSubmittedSuccessfully.value = true
         }
+
+
+        // Simple Debounce Implementation
+        function debounce(fn, delay) {
+            let timeout;
+            return function(...args) {
+                clearTimeout(timeout);
+                timeout = setTimeout(() => fn.apply(this, args), delay);
+            };
+        }
+
+        // For showing Invalid once the form is submitted
+        watch(numberOfEmployees, debounce((newValue) => {
+            if (!onceSubmittedSuccessfully.value) return;
+            if (typeSelected.value !== 'Pilot') return;
+
+            if (newValue >= 10) return;
+
+            showInvalid(numberOfEmployeesInput.value, numberOfEmployeesInput.value.parentElement, "Please enter a value of 10 or above.")
+        }, 300));
+
 
         // For info tooltip
         const adsInfoIcon = ref(null)
