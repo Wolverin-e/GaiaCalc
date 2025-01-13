@@ -127,6 +127,7 @@
                     : "-"
                 }}
               </template>
+              <span v-else> - </span>
             </td>
           </tr>
 
@@ -136,6 +137,7 @@
               <template v-if="allValuesFilled">
                 {{ monthlyPricingAIExtras ? "£ " + monthlyPricingAIExtras.toLocaleString() : "-" }}
               </template>
+              <span v-else> - </span>
             </td>
           </tr>
 
@@ -150,6 +152,7 @@
                   : "-"
                 }}
               </template>
+              <span v-else> - </span>
             </td>
           </tr>
 
@@ -159,6 +162,7 @@
               <template v-if="allValuesFilled">
                 {{ yearlyPricingManaged ? "£ " + yearlyPricingManaged.toLocaleString() : "-" }}
               </template>
+              <span v-else> - </span>
             </td>
           </tr>
 
@@ -168,6 +172,7 @@
               <template v-if="allValuesFilled">
                 {{ aiCreditsWithCoreSolution ? aiCreditsWithCoreSolution.toLocaleString() : "-" }}
               </template>
+              <span v-else> - </span>
             </td>
           </tr>
 

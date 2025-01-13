@@ -351,17 +351,19 @@ createApp({
             showTooltipFor(tooltipElem ?? elem, message)
         }
 
+        const isEmpty = x => x === undefined || x === ""
+
         const allValuesFilled = computed(() => {
             if(!typeSelected.value) return false
             if(!isNumberOfEmployeesUnnecessary && !numberOfEmployees.value) return false
             if(!isNumberOfAdsUnnecessary.value && !numberOfAdsSelected.value) return false
+            if((typeSelected.value === 'Pilot') && (!isNumberOfEmployeesUnnecessary.value) && numberOfEmployees.value < 10) return false
+            if((typeSelected.value === 'Managed') && (!isNumberOfEmployeesUnnecessary.value) && isEmpty(numberOfEmployees.value)) return false
 
             return true
         })
 
         const onSubmit = () => {
-
-            const isEmpty = x => x === undefined || x === ""
 
             if(typeSelected.value === null) return showInvalid(typeSelect.value, typeSelect.value.parentElement)
             if((!isNumberOfEmployeesUnnecessary.value) && isEmpty(numberOfEmployees.value)) return showInvalid(numberOfEmployeesInput.value, numberOfEmployeesInput.value.parentElement)
