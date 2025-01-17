@@ -17,6 +17,24 @@ createApp({
         const aiCreditsSelected = ref(null)
         const numberOfAdsSelected = ref(null)
 
+        // Localisation
+        const isRegionUS = computed(() => {
+            const url = new URL(window.location.href)
+            return url.searchParams.get('region') === 'us'
+        })
+
+        const regionCurrencySymbol = computed(() => {
+            if(isRegionUS.value) return '$'
+            return '£'
+        })
+
+        function regionifyAmount(amount){
+            if(!isRegionUS.value) return amount
+            if(typeof amount !== "number") return
+
+            return amount * 1.22
+        }
+
         // For cheeky comma in numberOfEmployees Field: 1000000 -> 1,000,000
         watch(numberOfEmployeesText, (newValue) => {
             const result = newValue.replace(/\D/g, "")
@@ -154,11 +172,11 @@ createApp({
 
 
             if(typeSelected.value === 'Pilot') {
-                return hLookup(employeesRounded.value, pricingPilot);  // Lookup in 'Pricing Pilot'
+                return regionifyAmount(hLookup(employeesRounded.value, pricingPilot));  // Lookup in 'Pricing Pilot'
             } else if (typeSelected.value === "Managed") {
-                return hLookup(employeesRounded.value, pricingManaged);  // Lookup in 'Pricing Managed'
+                return regionifyAmount(hLookup(employeesRounded.value, pricingManaged));  // Lookup in 'Pricing Managed'
             } else if (typeSelected.value === "Self Serve") {
-                return hLookup(numberOfAdsSelected.value, pricingSelfServe);  // Lookup in 'Pricing Self Serve'
+                return regionifyAmount(hLookup(numberOfAdsSelected.value, pricingSelfServe));  // Lookup in 'Pricing Self Serve'
             } else {
                 return null;  // Default value if no match
             }
@@ -184,7 +202,7 @@ createApp({
                 1000000: 79999,
             }
             
-            return pricing[aiCreditsSelected.value] ?? ""
+            return regionifyAmount(pricing[aiCreditsSelected.value] ?? "")
         })
 
         const quarterlyPricingPilot = computed(() => {
@@ -485,6 +503,7 @@ createApp({
             numberOfAdsOpts,
             aiCreditsOpts,
             numberOfAdsSelected,
+            isRegionUS,
 
             // Derivations
             employeesRounded,
@@ -495,6 +514,7 @@ createApp({
             aiCreditsWithCoreSolution,
             aiCreditsAdditionalPurchased,
             totalAICredits,
+            regionCurrencySymbol,
 
             // Form validation
             onceSubmittedSuccessfully,

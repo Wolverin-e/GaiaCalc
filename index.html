@@ -122,7 +122,7 @@
                 {{
                   monthlyPricingCoreSolution
                     ? (typeof monthlyPricingCoreSolution === "number")
-                      ? "£ " + Math.round(monthlyPricingCoreSolution).toLocaleString()
+                      ? regionCurrencySymbol + " " + Math.round(monthlyPricingCoreSolution).toLocaleString()
                       : monthlyPricingCoreSolution
                     : "-"
                 }}
@@ -135,7 +135,7 @@
             <td>Monthly price AI extras (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
-                {{ monthlyPricingAIExtras ? "£ " + monthlyPricingAIExtras.toLocaleString() : "-" }}
+                {{ monthlyPricingAIExtras ? regionCurrencySymbol + " " + monthlyPricingAIExtras.toLocaleString() : "-" }}
               </template>
               <span v-else> - </span>
             </td>
@@ -147,7 +147,7 @@
               <template v-if="allValuesFilled">
                 {{ quarterlyPricingPilot 
                   ? (typeof quarterlyPricingPilot === "number")
-                    ? "£ " + Math.round(quarterlyPricingPilot).toLocaleString()
+                    ? regionCurrencySymbol + " " + Math.round(quarterlyPricingPilot).toLocaleString()
                     : quarterlyPricingPilot
                   : "-"
                 }}
@@ -160,7 +160,7 @@
             <td>Yearly price managed (exc vat)</td>
             <td>
               <template v-if="allValuesFilled">
-                {{ yearlyPricingManaged ? "£ " + yearlyPricingManaged.toLocaleString() : "-" }}
+                {{ yearlyPricingManaged ? regionCurrencySymbol + " " + yearlyPricingManaged.toLocaleString() : "-" }}
               </template>
               <span v-else> - </span>
             </td>
