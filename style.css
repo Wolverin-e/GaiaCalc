@@ -97,6 +97,34 @@ body {
     font-smooth: never;
 }
 
+/* For screens 991px and smaller */
+@media screen and (max-width: 991px) {
+    #calc-app {
+        padding: 0px 80px;
+    }
+}
+
+/* For screens 767px and smaller */
+@media screen and (max-width: 767px) {
+    #calc-app {
+        padding: 0px 40px;
+    }
+}
+
+/* For screens 478px and smaller */
+@media screen and (max-width: 478px) {
+    #calc-app {
+        padding: 20px 20px;
+    }
+
+    #calc-section {
+        max-height: none;
+        height: auto;
+        width: 100%;
+    }
+}
+
+
 #calc-app table {
     max-width: 710px;
     width: 100%;
