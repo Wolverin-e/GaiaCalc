@@ -97,6 +97,10 @@ body {
     font-smooth: never;
 }
 
+#calc-app * {
+    box-sizing: content-box;
+}
+
 /* For screens 991px and smaller */
 @media screen and (max-width: 991px) {
     #calc-app {
