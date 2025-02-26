@@ -66,7 +66,7 @@ createApp({
         const roiValue = computed(() => {
             if(totalBenefits.value === null || brandingCosts.value === null) return null
 
-            return (0 - brandingCosts.value) / brandingCosts.value
+            return (totalBenefits.value - brandingCosts.value) / brandingCosts.value
         })
 
         const performanceLevel = computed(() => {
