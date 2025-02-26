@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gaia ROI Calculator</title>
+
+  <!-- Imports -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.11"></script>
+  <link rel="stylesheet" href="/roi/style.css">
+</head>
+
+<body>
+<div id="calc-section">
+  <div id="calc-app">
+    <h1 v-if="!onceSubmittedSuccessfully">
+      Let&rsquo;s calculate your <br/>
+      <i style="color: var(--t-moss-mute-green);">employer branding ROI</i>
+    </h1>
+
+    <form onsubmit="return false" id="calc-form" v-if="!onceSubmittedSuccessfully">
+      <table>
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Enter amount (yearly)</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>
+              Recruitment cost savings
+
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" :style="{ 'margin-bottom': '-1px', 'cursor': 'help' }" ref="recruitmentCostSavingsInfoIcon">
+                <path d="M0 5.5C0 8.532 2.468 11 5.5 11C8.532 11 11 8.532 11 5.5C11 2.468 8.532 0 5.5 0C2.468 0 0 2.468 0 5.5ZM5.5 1C7.982 1 10 3.018 10 5.5C10 7.982 7.982 10 5.5 10C3.018 10 1 7.982 1 5.5C1 3.018 3.018 1 5.5 1Z" fill="black"/>
+                <path d="M5.50008 8.01601C5.77608 8.01601 6.00008 7.79201 6.00008 7.51601V4.96601C6.00008 4.69001 5.77608 4.46601 5.50008 4.46601C5.22408 4.46601 5.00008 4.69001 5.00008 4.96601V7.51601C5.00008 7.79201 5.22408 8.01601 5.50008 8.01601Z" fill="black"/>
+                <path d="M5.50008 3.98401C5.53208 3.98401 5.56608 3.98001 5.59808 3.97401C5.63008 3.96801 5.66208 3.95801 5.69208 3.94601C5.72208 3.93401 5.75008 3.91801 5.77808 3.90001C5.80408 3.88201 5.83008 3.86001 5.85408 3.83801C5.94608 3.74401 6.00008 3.61601 6.00008 3.48401C6.00008 3.35201 5.94608 3.22401 5.85408 3.13001C5.73808 3.01401 5.56408 2.96201 5.40208 2.99401C5.37008 3.00001 5.33808 3.01001 5.30808 3.02201C5.27808 3.03401 5.25008 3.05001 5.22208 3.06801C5.19608 3.08601 5.17008 3.10801 5.14608 3.13001C5.05408 3.22401 5.00008 3.35201 5.00008 3.48401C5.00008 3.61601 5.05408 3.74401 5.14608 3.83801C5.24008 3.93001 5.36808 3.98401 5.50008 3.98401Z" fill="black"/>
+              </svg>
+
+              <div id="recruitment-tooltip-content" class="tooltip-content">
+                <b>What it measures:</b> The total amount saved by reducing <br/>
+                hiring costs through employer branding. This includes lower <br/>
+                spending on job ads, agency fees, and faster time-to-hire.
+              </div>
+            </td>
+            <td>
+              <span :style="{ 'color': recruitmentCostSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <input
+                v-model="recruitmentCostSavingsText"
+                ref="recruitmentCostSavingsInput"
+                type="text"
+                placeholder="e.g. 100"
+                :style="{ 'width': (!recruitmentCostSavings ? '7' : recruitmentCostSavingsText.toString().length) + 'ch' }"
+                :class="{ 'placeholder-text': recruitmentCostSavings === null }"
+              >
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Retention savings
+
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" :style="{ 'margin-bottom': '-1px', 'cursor': 'help' }" ref="retentionSavingsInfoIcon">
+                <path d="M0 5.5C0 8.532 2.468 11 5.5 11C8.532 11 11 8.532 11 5.5C11 2.468 8.532 0 5.5 0C2.468 0 0 2.468 0 5.5ZM5.5 1C7.982 1 10 3.018 10 5.5C10 7.982 7.982 10 5.5 10C3.018 10 1 7.982 1 5.5C1 3.018 3.018 1 5.5 1Z" fill="black"/>
+                <path d="M5.50008 8.01601C5.77608 8.01601 6.00008 7.79201 6.00008 7.51601V4.96601C6.00008 4.69001 5.77608 4.46601 5.50008 4.46601C5.22408 4.46601 5.00008 4.69001 5.00008 4.96601V7.51601C5.00008 7.79201 5.22408 8.01601 5.50008 8.01601Z" fill="black"/>
+                <path d="M5.50008 3.98401C5.53208 3.98401 5.56608 3.98001 5.59808 3.97401C5.63008 3.96801 5.66208 3.95801 5.69208 3.94601C5.72208 3.93401 5.75008 3.91801 5.77808 3.90001C5.80408 3.88201 5.83008 3.86001 5.85408 3.83801C5.94608 3.74401 6.00008 3.61601 6.00008 3.48401C6.00008 3.35201 5.94608 3.22401 5.85408 3.13001C5.73808 3.01401 5.56408 2.96201 5.40208 2.99401C5.37008 3.00001 5.33808 3.01001 5.30808 3.02201C5.27808 3.03401 5.25008 3.05001 5.22208 3.06801C5.19608 3.08601 5.17008 3.10801 5.14608 3.13001C5.05408 3.22401 5.00008 3.35201 5.00008 3.48401C5.00008 3.61601 5.05408 3.74401 5.14608 3.83801C5.24008 3.93001 5.36808 3.98401 5.50008 3.98401Z" fill="black"/>
+              </svg>
+            </td>
+            <td>
+              <span :style="{ 'color': retentionSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <input
+                v-model="retentionSavingsText"
+                ref="retentionSavingsInput"
+                type="text"
+                placeholder="e.g. 100"
+                :style="{ 'width': (!retentionSavings ? '7' : retentionSavingsText.toString().length) + 'ch' }"
+                :class="{ 'placeholder-text': retentionSavings === null }"
+              >
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Direct hire savings
+
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" :style="{ 'margin-bottom': '-1px', 'cursor': 'help' }" ref="directHireSavingsInfoIcon">
+                <path d="M0 5.5C0 8.532 2.468 11 5.5 11C8.532 11 11 8.532 11 5.5C11 2.468 8.532 0 5.5 0C2.468 0 0 2.468 0 5.5ZM5.5 1C7.982 1 10 3.018 10 5.5C10 7.982 7.982 10 5.5 10C3.018 10 1 7.982 1 5.5C1 3.018 3.018 1 5.5 1Z" fill="black"/>
+                <path d="M5.50008 8.01601C5.77608 8.01601 6.00008 7.79201 6.00008 7.51601V4.96601C6.00008 4.69001 5.77608 4.46601 5.50008 4.46601C5.22408 4.46601 5.00008 4.69001 5.00008 4.96601V7.51601C5.00008 7.79201 5.22408 8.01601 5.50008 8.01601Z" fill="black"/>
+                <path d="M5.50008 3.98401C5.53208 3.98401 5.56608 3.98001 5.59808 3.97401C5.63008 3.96801 5.66208 3.95801 5.69208 3.94601C5.72208 3.93401 5.75008 3.91801 5.77808 3.90001C5.80408 3.88201 5.83008 3.86001 5.85408 3.83801C5.94608 3.74401 6.00008 3.61601 6.00008 3.48401C6.00008 3.35201 5.94608 3.22401 5.85408 3.13001C5.73808 3.01401 5.56408 2.96201 5.40208 2.99401C5.37008 3.00001 5.33808 3.01001 5.30808 3.02201C5.27808 3.03401 5.25008 3.05001 5.22208 3.06801C5.19608 3.08601 5.17008 3.10801 5.14608 3.13001C5.05408 3.22401 5.00008 3.35201 5.00008 3.48401C5.00008 3.61601 5.05408 3.74401 5.14608 3.83801C5.24008 3.93001 5.36808 3.98401 5.50008 3.98401Z" fill="black"/>
+              </svg>
+            </td>
+            <td>
+              <span :style="{ 'color': directHireSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <input
+                v-model="directHireSavingsText"
+                ref="directHireSavingsInput"
+                type="text"
+                placeholder="e.g. 100"
+                :style="{ 'width': (!directHireSavings ? '7' : directHireSavingsText.toString().length) + 'ch' }"
+                :class="{ 'placeholder-text': directHireSavings === null }"
+              >
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              Branding costs
+
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg" :style="{ 'margin-bottom': '-1px', 'cursor': 'help' }" ref="brandingCostsInfoIcon">
+                <path d="M0 5.5C0 8.532 2.468 11 5.5 11C8.532 11 11 8.532 11 5.5C11 2.468 8.532 0 5.5 0C2.468 0 0 2.468 0 5.5ZM5.5 1C7.982 1 10 3.018 10 5.5C10 7.982 7.982 10 5.5 10C3.018 10 1 7.982 1 5.5C1 3.018 3.018 1 5.5 1Z" fill="black"/>
+                <path d="M5.50008 8.01601C5.77608 8.01601 6.00008 7.79201 6.00008 7.51601V4.96601C6.00008 4.69001 5.77608 4.46601 5.50008 4.46601C5.22408 4.46601 5.00008 4.69001 5.00008 4.96601V7.51601C5.00008 7.79201 5.22408 8.01601 5.50008 8.01601Z" fill="black"/>
+                <path d="M5.50008 3.98401C5.53208 3.98401 5.56608 3.98001 5.59808 3.97401C5.63008 3.96801 5.66208 3.95801 5.69208 3.94601C5.72208 3.93401 5.75008 3.91801 5.77808 3.90001C5.80408 3.88201 5.83008 3.86001 5.85408 3.83801C5.94608 3.74401 6.00008 3.61601 6.00008 3.48401C6.00008 3.35201 5.94608 3.22401 5.85408 3.13001C5.73808 3.01401 5.56408 2.96201 5.40208 2.99401C5.37008 3.00001 5.33808 3.01001 5.30808 3.02201C5.27808 3.03401 5.25008 3.05001 5.22208 3.06801C5.19608 3.08601 5.17008 3.10801 5.14608 3.13001C5.05408 3.22401 5.00008 3.35201 5.00008 3.48401C5.00008 3.61601 5.05408 3.74401 5.14608 3.83801C5.24008 3.93001 5.36808 3.98401 5.50008 3.98401Z" fill="black"/>
+              </svg>
+            </td>
+            <td>
+              <span :style="{ 'color': brandingCostsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <input
+                v-model="brandingCostsText"
+                ref="brandingCostsInput"
+                type="text"
+                placeholder="e.g. 100"
+                :style="{ 'width': (!brandingCosts ? '7' : brandingCostsText.toString().length) + 'ch' }"
+                :class="{ 'placeholder-text': brandingCosts === null }"
+              >
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+      <input type="submit" value="Get Results" id="get-results-button" @click="onSubmit" v-if="!onceSubmittedSuccessfully">
+    </form>
+
+    <div id="results" v-if="onceSubmittedSuccessfully">
+      <h2 id="performance-level-heading">
+        {{
+          performanceLevel ? {
+            'needs_improvement': 'Needs improvement',
+            'moderate_performance': 'Moderate performance',
+            'strong_performance': 'Strong performance',
+          }[performanceLevel] : 'Needs improvement'
+        }} (ROI: {{Math.round(roiValue)}}%)
+      </h2>
+      <h3 id="performance-level-description" style="max-width: 865px;">
+        <template v-if="performanceLevel === 'needs_improvement'">
+          Uh-oh! It looks like your employer branding efforts are costing you more than they&rsquo;re
+          bringing in. Don&rsquo;t worry - we&rsquo;ve seen this before, and it&rsquo;s often a case of small tweaks
+          making a big difference.
+        </template>
+        <template v-if="performanceLevel === 'moderate_performance'">
+          Not bad, but not brilliant either. You&rsquo;re breaking even or getting some return on your
+          efforts, which is a good start! But why settle for “alright” when you could achieve
+          “absolutely smashing”?
+        </template>
+        <template v-if="performanceLevel === 'strong_performance'">
+          Now we&rsquo;re talking! Your employer branding efforts are hitting the mark, and the results are
+          looking rather impressive. But even the best strategies can always use a bit of polish or
+          scaling up, right?
+        </template>
+      </h3>
+
+      <h2 id="whats-next-heading">
+        What&rsquo;s next?
+      </h2>
+      <h3 id="whats-next-description" style="max-width: 490px;">
+        <template v-if="performanceLevel === 'needs_improvement'">
+          Let&rsquo;s have a quick chat! We can help you turn things around, optimise your strategy, and
+          start seeing results that make all the effort worthwhile. After all, it&rsquo;s what we do best.
+        </template>
+        <template v-if="performanceLevel === 'moderate_performance'">
+          Book a chat with us. We&rsquo;ll show you how to take your employer branding from meh to
+          marvellous in no time.
+        </template>
+        <template v-if="performanceLevel === 'strong_performance'">
+          Let&rsquo;s have a chat. We&rsquo;ll help you keep the momentum going and explore how to make your
+          branding efforts even more impactful.
+        </template>
+      </h3>
+
+      <button id="book-demo-button">
+        Book a Demo
+      </button>
+    </div>
+  </div>
+
+</div>  
+<script src="/roi/script.js"></script>
+</body>
+
+</html>
