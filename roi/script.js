@@ -13,22 +13,22 @@ createApp({
     setup() {
 
         // State vars
-        const recruitmentCostSavingsText = ref('131')
-        const recruitmentCostSavings = ref(131)
-        const retentionSavingsText = ref('12,332')
-        const retentionSavings = ref(12332)
-        const directHireSavingsText = ref('353')
-        const directHireSavings = ref(353)
-        const brandingCostsText = ref('232')
-        const brandingCosts = ref(232)
-        // const recruitmentCostSavingsText = ref('')
-        // const recruitmentCostSavings = ref(null)
-        // const retentionSavingsText = ref('')
-        // const retentionSavings = ref(null)
-        // const directHireSavingsText = ref('')
-        // const directHireSavings = ref(null)
-        // const brandingCostsText = ref('')
-        // const brandingCosts = ref(null)
+        // const recruitmentCostSavingsText = ref('131')
+        // const recruitmentCostSavings = ref(131)
+        // const retentionSavingsText = ref('12,332')
+        // const retentionSavings = ref(12332)
+        // const directHireSavingsText = ref('353')
+        // const directHireSavings = ref(353)
+        // const brandingCostsText = ref('232')
+        // const brandingCosts = ref(232)
+        const recruitmentCostSavingsText = ref('')
+        const recruitmentCostSavings = ref(null)
+        const retentionSavingsText = ref('')
+        const retentionSavings = ref(null)
+        const directHireSavingsText = ref('')
+        const directHireSavings = ref(null)
+        const brandingCostsText = ref('')
+        const brandingCosts = ref(null)
 
         // For cheeky comma in numeric values Field: 1000000 -> 1,000,000
         const textNumericValuePairs = [
