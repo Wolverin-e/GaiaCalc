@@ -48,7 +48,7 @@
               </div>
             </td>
             <td>
-              <span :style="{ 'color': recruitmentCostSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <span class="currency-span" :style="{ 'color': recruitmentCostSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
               <input
                 v-model="recruitmentCostSavingsText"
                 ref="recruitmentCostSavingsInput"
@@ -69,9 +69,14 @@
                 <path d="M5.50008 8.01601C5.77608 8.01601 6.00008 7.79201 6.00008 7.51601V4.96601C6.00008 4.69001 5.77608 4.46601 5.50008 4.46601C5.22408 4.46601 5.00008 4.69001 5.00008 4.96601V7.51601C5.00008 7.79201 5.22408 8.01601 5.50008 8.01601Z" fill="black"/>
                 <path d="M5.50008 3.98401C5.53208 3.98401 5.56608 3.98001 5.59808 3.97401C5.63008 3.96801 5.66208 3.95801 5.69208 3.94601C5.72208 3.93401 5.75008 3.91801 5.77808 3.90001C5.80408 3.88201 5.83008 3.86001 5.85408 3.83801C5.94608 3.74401 6.00008 3.61601 6.00008 3.48401C6.00008 3.35201 5.94608 3.22401 5.85408 3.13001C5.73808 3.01401 5.56408 2.96201 5.40208 2.99401C5.37008 3.00001 5.33808 3.01001 5.30808 3.02201C5.27808 3.03401 5.25008 3.05001 5.22208 3.06801C5.19608 3.08601 5.17008 3.10801 5.14608 3.13001C5.05408 3.22401 5.00008 3.35201 5.00008 3.48401C5.00008 3.61601 5.05408 3.74401 5.14608 3.83801C5.24008 3.93001 5.36808 3.98401 5.50008 3.98401Z" fill="black"/>
               </svg>
+
+              <div id="retention-tooltip-content" class="tooltip-content">
+                <b>What it measures:</b> The cost savings from employees staying longer, reducing turnover- <br/>
+                related expenses like rehiring, training, and lost productivity.
+              </div>
             </td>
             <td>
-              <span :style="{ 'color': retentionSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <span class="currency-span" :style="{ 'color': retentionSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
               <input
                 v-model="retentionSavingsText"
                 ref="retentionSavingsInput"
@@ -92,9 +97,15 @@
                 <path d="M5.50008 8.01601C5.77608 8.01601 6.00008 7.79201 6.00008 7.51601V4.96601C6.00008 4.69001 5.77608 4.46601 5.50008 4.46601C5.22408 4.46601 5.00008 4.69001 5.00008 4.96601V7.51601C5.00008 7.79201 5.22408 8.01601 5.50008 8.01601Z" fill="black"/>
                 <path d="M5.50008 3.98401C5.53208 3.98401 5.56608 3.98001 5.59808 3.97401C5.63008 3.96801 5.66208 3.95801 5.69208 3.94601C5.72208 3.93401 5.75008 3.91801 5.77808 3.90001C5.80408 3.88201 5.83008 3.86001 5.85408 3.83801C5.94608 3.74401 6.00008 3.61601 6.00008 3.48401C6.00008 3.35201 5.94608 3.22401 5.85408 3.13001C5.73808 3.01401 5.56408 2.96201 5.40208 2.99401C5.37008 3.00001 5.33808 3.01001 5.30808 3.02201C5.27808 3.03401 5.25008 3.05001 5.22208 3.06801C5.19608 3.08601 5.17008 3.10801 5.14608 3.13001C5.05408 3.22401 5.00008 3.35201 5.00008 3.48401C5.00008 3.61601 5.05408 3.74401 5.14608 3.83801C5.24008 3.93001 5.36808 3.98401 5.50008 3.98401Z" fill="black"/>
               </svg>
+
+              <div id="direct-hire-tooltip-content" class="tooltip-content">
+                <b>What it measures:</b> The money saved by attracting more <b>organic job applicants</b> (people <br/>
+                applying without paid ads or agencies) and <b>employee referrals</b> (reducing external recruiter <br/>
+                costs).
+              </div>
             </td>
             <td>
-              <span :style="{ 'color': directHireSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <span class="currency-span" :style="{ 'color': directHireSavingsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
               <input
                 v-model="directHireSavingsText"
                 ref="directHireSavingsInput"
@@ -115,9 +126,15 @@
                 <path d="M5.50008 8.01601C5.77608 8.01601 6.00008 7.79201 6.00008 7.51601V4.96601C6.00008 4.69001 5.77608 4.46601 5.50008 4.46601C5.22408 4.46601 5.00008 4.69001 5.00008 4.96601V7.51601C5.00008 7.79201 5.22408 8.01601 5.50008 8.01601Z" fill="black"/>
                 <path d="M5.50008 3.98401C5.53208 3.98401 5.56608 3.98001 5.59808 3.97401C5.63008 3.96801 5.66208 3.95801 5.69208 3.94601C5.72208 3.93401 5.75008 3.91801 5.77808 3.90001C5.80408 3.88201 5.83008 3.86001 5.85408 3.83801C5.94608 3.74401 6.00008 3.61601 6.00008 3.48401C6.00008 3.35201 5.94608 3.22401 5.85408 3.13001C5.73808 3.01401 5.56408 2.96201 5.40208 2.99401C5.37008 3.00001 5.33808 3.01001 5.30808 3.02201C5.27808 3.03401 5.25008 3.05001 5.22208 3.06801C5.19608 3.08601 5.17008 3.10801 5.14608 3.13001C5.05408 3.22401 5.00008 3.35201 5.00008 3.48401C5.00008 3.61601 5.05408 3.74401 5.14608 3.83801C5.24008 3.93001 5.36808 3.98401 5.50008 3.98401Z" fill="black"/>
               </svg>
+
+              <div id="branding-costs-tooltip-content" class="tooltip-content">
+                <b>What it measures:</b> The total investment in employer branding, including career site <br/>
+                improvements, social media campaigns, content marketing, and any initiatives to boost <br/>
+                brand perception.
+              </div>
             </td>
             <td>
-              <span :style="{ 'color': brandingCostsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
+              <span class="currency-span" :style="{ 'color': brandingCostsText ? 'inherit' : 'var(--t-black-placeholder)', 'margin-right': '4px' }">£</span>
               <input
                 v-model="brandingCostsText"
                 ref="brandingCostsInput"

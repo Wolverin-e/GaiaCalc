@@ -188,9 +188,9 @@ createApp({
 
         const tooltipContentPairs = [
             [recruitmentCostSavingsInfoIcon, "#recruitment-tooltip-content"],
-            [retentionSavingsInfoIcon, "#recruitment-tooltip-content"],
-            [directHireSavingsInfoIcon, "#recruitment-tooltip-content"],
-            [brandingCostsInfoIcon, "#recruitment-tooltip-content"],
+            [retentionSavingsInfoIcon, "#retention-tooltip-content"],
+            [directHireSavingsInfoIcon, "#direct-hire-tooltip-content"],
+            [brandingCostsInfoIcon, "#branding-costs-tooltip-content"],
         ]
 
         const initAdsTooltips = () => {

@@ -16,6 +16,11 @@
     --t-rounded-sm: 10px;
 
     --t-font-family: "F 37 Zagma", "F37 Zagma", Arial, sans-serif;
+
+    /* Prod height controllers */
+    --t-100vh-height: 100vh;
+    --t-100vh-min-max-height: 100vh;
+    --t-section-overflow: hidden;
 }
 
 body, h1 {
@@ -51,11 +56,10 @@ body {
 
 /* For Scrollbar modifications */
 #calc-section {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: var(--t-section-overflow);
 
-    max-height: 100vh;
-    height: 100vh;
+    max-height: var(--t-100vh-min-max-height);
+    height: var(--t-100vh-height);
     width: 100%;
 }
 
@@ -99,11 +103,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: 40px;
-    min-height: 100vh;
+    min-height: var(--t-100vh-min-max-height);
     width: 100%;
-
-    padding-top: 10px;
-    padding-bottom: 10px;
 
     box-sizing: border-box;
 
@@ -311,6 +312,10 @@ body {
     border-color: #F07E80 !important;
 }
 
+#calc-app span.currency-span:has(+ .invalid:focus-within) {
+    color: var(--t-danger-light) !important;
+}
+
 #calc-app input.invalid {
     outline: none !important;
 }
@@ -371,22 +376,30 @@ body {
 
 #results #performance-level-heading{
     font-size: 3rem;
+    color: var(--t-black);
+    font-weight: 400;
 }
 #results #performance-level-description{
     font-size: 1.5rem;
     line-height: 1;
     opacity: 0.7;
     margin-top: 1rem;
+    color: var(--t-black);
+    font-weight: 400;
 }
 #results #whats-next-heading{
     font-size: 2.75rem;
     margin-top: 3rem;
+    color: var(--t-black);
+    font-weight: 400;
 }
 #results #whats-next-description{
     font-size: 1rem;
     line-height: 1.5;
     opacity: 0.7;
     margin-top: 0.75rem;
+    color: var(--t-black);
+    font-weight: 400;
 }
 
 #book-demo-button {
