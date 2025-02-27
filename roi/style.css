@@ -17,6 +17,15 @@
 
     --t-font-family: "F 37 Zagma", "F37 Zagma", Arial, sans-serif;
 
+    /* For Responsive values */
+    --t-text-48px: 48px;
+    --t-text-24px: 24px;
+    --t-text-44px: 44px;
+    --t-text-16px: 16px;
+    --t-text-leading-24: 1.5;
+    --t-calc-second-row-width: 160px;
+    --t-tooltip-display: block;
+
     /* Prod height controllers */
     --t-100vh-height: 100vh;
     --t-100vh-min-max-height: 100vh;
@@ -91,7 +100,7 @@ body {
     font-size: 2em;
     text-align: center;
     font-weight: normal;
-    font-size: 3rem;
+    font-size: var(--t-text-48px);
 }
 
 #calc-app {
@@ -120,6 +129,12 @@ body {
 
 /* For screens 991px and smaller */
 @media screen and (max-width: 991px) {
+    :root {
+        --t-text-48px: 38px;
+        --t-text-44px: 34px;
+        --t-text-24px: 22px;
+    }
+
     #calc-app {
         padding: 0px 80px;
     }
@@ -127,6 +142,13 @@ body {
 
 /* For screens 767px and smaller */
 @media screen and (max-width: 767px) {
+    :root {
+        --t-text-48px: 32px;
+        --t-text-44px: 28px;
+        --t-tooltip-display: none;
+        --t-text-leading-24: 1.2;
+    }
+
     #calc-app {
         padding: 0px 40px;
     }
@@ -134,6 +156,13 @@ body {
 
 /* For screens 478px and smaller */
 @media screen and (max-width: 478px) {
+    :root {
+        --t-text-48px: 30px;
+        --t-text-44px: 26px;
+        --t-text-24px: 18px;
+        --t-calc-second-row-width: 100px;
+    }
+
     #calc-app {
         padding: 20px 20px;
     }
@@ -142,6 +171,10 @@ body {
         max-height: none;
         height: auto;
         width: 100%;
+    }
+
+    #calc-app thead {
+        font-size: 14px !important;
     }
 }
 
@@ -218,7 +251,7 @@ body {
 #calc-app td:last-child {
     border: 0.25px solid var(--t-card-stroke);
     border-top-style: none;
-    width: 160px;
+    width: var(--t-calc-second-row-width);
 
     padding-top: 12px;
     padding-bottom: 12px;
@@ -238,7 +271,7 @@ body {
 #calc-app td:last-child, #calc-app th:last-child {
     text-align: left;
     padding-left: 20px;
-    padding-right: 20px;
+    padding-right: 5px;
 }
 
 #calc-app tbody td:last-child {
@@ -265,12 +298,17 @@ body {
     border: none;
     color: var(--t-black);
     background: transparent;
-    outline-color: var(--t-moss-green-outline);
-    outline-offset: 3px;
+    outline: none;
+    /* outline-color: var(--t-moss-green-outline);
+    outline-offset: 3px; */
 
     /* min-width: 100px; */
 
     font-size: 16px;
+}
+
+#calc-app .cursor-type {
+    cursor: text;
 }
 
 #calc-app table input[type=number]::placeholder {
@@ -312,6 +350,9 @@ body {
     border-color: #F07E80 !important;
 }
 
+#calc-app span.currency-span {
+    user-select: none;
+}
 #calc-app span.currency-span:has(+ .invalid:focus-within) {
     color: var(--t-danger-light) !important;
 }
@@ -375,12 +416,12 @@ body {
 }
 
 #results #performance-level-heading{
-    font-size: 3rem;
+    font-size: var(--t-text-48px);
     color: var(--t-black);
     font-weight: 400;
 }
 #results #performance-level-description{
-    font-size: 1.5rem;
+    font-size: var(--t-text-24px);
     line-height: 1;
     opacity: 0.7;
     margin-top: 1rem;
@@ -388,14 +429,14 @@ body {
     font-weight: 400;
 }
 #results #whats-next-heading{
-    font-size: 2.75rem;
+    font-size: var(--t-text-44px);
     margin-top: 3rem;
     color: var(--t-black);
     font-weight: 400;
 }
 #results #whats-next-description{
-    font-size: 1rem;
-    line-height: 1.5;
+    font-size: var(--t-text-16px);
+    line-height: var(--t-text-leading-24);
     opacity: 0.7;
     margin-top: 0.75rem;
     color: var(--t-black);
@@ -475,8 +516,13 @@ body {
     font-family: var(--t-font-family);
     font-size: 12px;
     line-height: 13.5px;
+    max-width: 60vw;
 
     box-shadow: 0px 4px 13px 0px #00000021;
+}
+
+.info-tooltip br {
+    display: var(--t-tooltip-display);
 }
 
 .info-tooltip .arrow {

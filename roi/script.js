@@ -1,4 +1,4 @@
-const { computePosition, offset, arrow } = FloatingUIDOM
+const { computePosition, offset, arrow, shift, limitShift } = FloatingUIDOM
 
 const {
     createApp,
@@ -66,17 +66,19 @@ createApp({
         const roiValue = computed(() => {
             if(totalBenefits.value === null || brandingCosts.value === null) return null
 
-            return (totalBenefits.value - brandingCosts.value) / brandingCosts.value
+            return Math.round((totalBenefits.value - brandingCosts.value) / brandingCosts.value)
         })
 
         const performanceLevel = computed(() => {
             if(roiValue.value === null) return null
 
-            if(roiValue.value < 0){
+            if(roiValue.value <= 0){
+                return "no_impact_yet"
+            } else if(0 < roiValue.value && roiValue.value < 30){
                 return "needs_improvement"
-            } else if(0 <= roiValue.value && roiValue.value <= 50){
+            } else if(30 <= roiValue.value && roiValue.value < 55){
                 return "moderate_performance"
-            } else { // ROI > 50
+            } else {
                 return "strong_performance"
             }
         })
@@ -91,7 +93,7 @@ createApp({
         const brandingCostsInput = ref(null)
 
         // For tooltips
-        const showTooltipFor = (elem, text = "tooltip", arrowXOffset = -50) => {
+        const showTooltipFor = (elem, text = "tooltip", arrowXOffset = 50) => {
 
             const tooltipDiv = document.createElement('div')
             tooltipDiv.id = 'tooltip'
@@ -109,6 +111,7 @@ createApp({
                 middleware: [
                     offset(7),
                     arrow({ element: arrowDiv }),
+                    shift(),
                 ]
             }).then(({x, y, placement, middlewareData}) => {
                 Object.assign(tooltipDiv.style, {
@@ -126,7 +129,7 @@ createApp({
                 }[placement.split('-')[0]];
 
                 Object.assign(arrowDiv.style, {
-                    left: arrowX != null ? `${arrowX + arrowXOffset}px` : '',
+                    left: arrowX != null ? `${arrowX - arrowXOffset}px` : '',
                     top: arrowY != null ? `${arrowY}px` : '',
                     right: '',
                     bottom: '',
@@ -198,7 +201,7 @@ createApp({
 
                 if(!iconElementRef.value) return
 
-                let shiftRightByPx = 60
+                let shiftRightByPx = 120
 
                 const tooltipDivElem = document.createElement('div')
                 tooltipDivElem.className = 'info-tooltip'
@@ -224,12 +227,16 @@ createApp({
                     computePosition(elem, tooltipDiv, {
                         placement: 'bottom',
                         middleware: [
-                            offset(7),
+                            offset({
+                                crossAxis: shiftRightByPx,
+                                mainAxis: 7,
+                            }),
                             arrow({ element: arrowDiv }),
+                            shift(),
                         ]
                     }).then(({x, y, placement, middlewareData}) => {
                         Object.assign(tooltipDiv.style, {
-                            left: `${x + shiftRightByPx}px`,
+                            left: `${x}px`,
                             top: `${y}px`,
                         })
 
@@ -243,7 +250,7 @@ createApp({
                         }[placement.split('-')[0]];
 
                         Object.assign(arrowDiv.style, {
-                            left: arrowX != null ? `${arrowX - shiftRightByPx}px` : '',
+                            left: arrowX != null ? `${arrowX}px` : '',
                             top: arrowY != null ? `${arrowY}px` : '',
                             right: '',
                             bottom: '',
@@ -279,6 +286,12 @@ createApp({
         })
 
 
+        // Some utilities
+        const focusInputWithin = (e) => {
+            e.target.querySelector('input')?.focus()
+        }
+
+
         return {
             // State
             recruitmentCostSavingsText,
@@ -294,6 +307,9 @@ createApp({
             totalBenefits,
             roiValue,
             performanceLevel,
+
+            // Utility
+            focusInputWithin,
 
             // Form validation
             onceSubmittedSuccessfully,
