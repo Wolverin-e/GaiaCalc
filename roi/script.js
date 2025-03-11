@@ -13,29 +13,15 @@ createApp({
     setup() {
 
         // State vars
-        // const recruitmentCostSavingsText = ref('131')
-        // const recruitmentCostSavings = ref(131)
-        // const retentionSavingsText = ref('12,332')
-        // const retentionSavings = ref(12332)
-        // const directHireSavingsText = ref('353')
-        // const directHireSavings = ref(353)
-        // const brandingCostsText = ref('232')
-        // const brandingCosts = ref(232)
-        const recruitmentCostSavingsText = ref('')
-        const recruitmentCostSavings = ref(null)
-        const retentionSavingsText = ref('')
-        const retentionSavings = ref(null)
-        const directHireSavingsText = ref('')
-        const directHireSavings = ref(null)
-        const brandingCostsText = ref('')
-        const brandingCosts = ref(null)
+        const rolesAdvertisedText = ref('')
+        const rolesAdvertised = ref(null)
+        const rolesFilledText = ref('')
+        const rolesFilled = ref(null)
 
         // For cheeky comma in numeric values Field: 1000000 -> 1,000,000
         const textNumericValuePairs = [
-            [recruitmentCostSavingsText, recruitmentCostSavings],
-            [retentionSavingsText, retentionSavings],
-            [directHireSavingsText, directHireSavings],
-            [brandingCostsText, brandingCosts],
+            [rolesAdvertisedText, rolesAdvertised],
+            [rolesFilledText, rolesFilled],
         ]
         textNumericValuePairs.forEach(([text, numeric]) => {
             watch(text, (newValue) => {
@@ -53,44 +39,31 @@ createApp({
         })
 
         // Computed Values
-        const totalBenefits = computed(() => {
-            if(recruitmentCostSavings.value === null
-                || retentionSavings.value === null
-                || directHireSavings.value === null
-                || brandingCosts.value === null
-            ) return null
-
-            return recruitmentCostSavings.value + retentionSavings.value + directHireSavings.value + brandingCosts.value
-        })
-
         const roiValue = computed(() => {
-            if(totalBenefits.value === null || brandingCosts.value === null) return null
+            if(rolesAdvertised.value === null || rolesFilled.value === null) return null;
 
-            return Math.round((totalBenefits.value - brandingCosts.value) / brandingCosts.value)
+            return Math.round(rolesFilled.value * 100 / rolesAdvertised.value)
         })
 
         const performanceLevel = computed(() => {
             if(roiValue.value === null) return null
 
-            if(roiValue.value <= 0){
-                return "no_impact_yet"
-            } else if(0 < roiValue.value && roiValue.value < 30){
-                return "needs_improvement"
-            } else if(30 <= roiValue.value && roiValue.value < 55){
-                return "moderate_performance"
+            if(roiValue.value <= 33){
+                return "weak"
+            } else if(34 <= roiValue.value && roiValue.value <= 67){
+                return "moderate"
+            } else if(68 <= roiValue.value && roiValue.value <= 90){
+                return "good"
             } else {
-                return "strong_performance"
+                return "excellent"
             }
         })
 
 
         // Form validation
         const onceSubmittedSuccessfully = ref(false)
-        const numberOfEmployeesInput = ref(null)
-        const recruitmentCostSavingsInput = ref(null)
-        const retentionSavingsInput = ref(null)
-        const directHireSavingsInput = ref(null)
-        const brandingCostsInput = ref(null)
+        const rolesAdvertisedInput = ref(null)
+        const rolesFilledInput = ref(null)
 
         // For tooltips
         const showTooltipFor = (elem, text = "tooltip", arrowXOffset = 50) => {
@@ -164,126 +137,117 @@ createApp({
         const isEmpty = x => x === undefined || x === ""
 
         const allValuesFilled = computed(() => {
-            if(recruitmentCostSavings.value === null) return false
-            if(retentionSavings.value === null) return false
-            if(directHireSavings.value === null) return false
-            if(brandingCostsText.value === null) return false
+            if(rolesAdvertised.value === null) return false
+            if(rolesFilled.value === null) return false
 
             return true
         })
 
         const onSubmit = () => {
-
-            if(recruitmentCostSavings.value === null) return showInvalid(recruitmentCostSavingsInput.value, recruitmentCostSavingsInput.value.parentElement)
-            if(retentionSavings.value === null) return showInvalid(retentionSavingsInput.value, retentionSavingsInput.value.parentElement)
-            if(directHireSavings.value === null) return showInvalid(directHireSavingsInput.value, directHireSavingsInput.value.parentElement)
-            if(brandingCosts.value === null) return showInvalid(brandingCostsInput.value, brandingCostsInput.value.parentElement)
+            if(rolesAdvertised.value === null) return showInvalid(rolesAdvertisedInput.value, rolesAdvertisedInput.value.parentElement)
+            if(rolesFilled.value === null) return showInvalid(rolesFilledInput.value, rolesFilledInput.value.parentElement)
 
             onceSubmittedSuccessfully.value = true
         }
 
 
         // For info tooltips
-        const recruitmentCostSavingsInfoIcon = ref(null)
-        const retentionSavingsInfoIcon = ref(null)
-        const directHireSavingsInfoIcon = ref(null)
-        const brandingCostsInfoIcon = ref(null)
+        // const numberofRolesAdvertisedInfoIcon = ref(null)
+        // const numberOfRolesFilledInfoIcon = ref(null)
 
-        const tooltipContentPairs = [
-            [recruitmentCostSavingsInfoIcon, "#recruitment-tooltip-content"],
-            [retentionSavingsInfoIcon, "#retention-tooltip-content"],
-            [directHireSavingsInfoIcon, "#direct-hire-tooltip-content"],
-            [brandingCostsInfoIcon, "#branding-costs-tooltip-content"],
-        ]
+        // const tooltipContentPairs = [
+        //     [numberofRolesAdvertisedInfoIcon, "#recruitment-tooltip-content"],
+        //     [numberOfRolesFilledInfoIcon, "#retention-tooltip-content"]   
+        // ]
 
-        const initAdsTooltips = () => {
-            tooltipContentPairs.forEach(([iconElementRef, content_selector]) => {
+        // const initAdsTooltips = () => {
+        //     tooltipContentPairs.forEach(([iconElementRef, content_selector]) => {
 
-                if(!iconElementRef.value) return
+        //         if(!iconElementRef.value) return
 
-                let shiftRightByPx = 120
+        //         let shiftRightByPx = 120
 
-                const tooltipDivElem = document.createElement('div')
-                tooltipDivElem.className = 'info-tooltip'
-                tooltipDivElem.setAttribute('role', 'tooltip')
-                document.body.appendChild(tooltipDivElem)
+        //         const tooltipDivElem = document.createElement('div')
+        //         tooltipDivElem.className = 'info-tooltip'
+        //         tooltipDivElem.setAttribute('role', 'tooltip')
+        //         document.body.appendChild(tooltipDivElem)
 
-                const arrowDivElem = document.createElement('div')
-                arrowDivElem.className = 'arrow'
-                tooltipDivElem.appendChild(arrowDivElem)
+        //         const arrowDivElem = document.createElement('div')
+        //         arrowDivElem.className = 'arrow'
+        //         tooltipDivElem.appendChild(arrowDivElem)
 
-                const content = document.querySelector(content_selector)
-                if(content){
-                    // append the content
-                    tooltipDivElem.appendChild(content.cloneNode(true))
+        //         const content = document.querySelector(content_selector)
+        //         if(content){
+        //             // append the content
+        //             tooltipDivElem.appendChild(content.cloneNode(true))
 
-                    // Assign the shiftRight if there
-                    if(content.dataset.shiftRight) shiftRightByPx = parseInt(content.dataset.shiftRight)
-                } else {
-                    console.warn("No content found for tolltip: ", content_selector)
-                }
+        //             // Assign the shiftRight if there
+        //             if(content.dataset.shiftRight) shiftRightByPx = parseInt(content.dataset.shiftRight)
+        //         } else {
+        //             console.warn("No content found for tolltip: ", content_selector)
+        //         }
 
-                const updateAdsInfoTooltip = (elem = iconElementRef.value, tooltipDiv = tooltipDivElem, arrowDiv = arrowDivElem) => {
-                    computePosition(elem, tooltipDiv, {
-                        placement: 'bottom',
-                        middleware: [
-                            offset({
-                                crossAxis: shiftRightByPx,
-                                mainAxis: 7,
-                            }),
-                            arrow({ element: arrowDiv }),
-                            shift(),
-                        ]
-                    }).then(({x, y, placement, middlewareData}) => {
-                        Object.assign(tooltipDiv.style, {
-                            left: `${x}px`,
-                            top: `${y}px`,
-                        })
+        //         const updateAdsInfoTooltip = (elem = iconElementRef.value, tooltipDiv = tooltipDivElem, arrowDiv = arrowDivElem) => {
+        //             computePosition(elem, tooltipDiv, {
+        //                 placement: 'bottom',
+        //                 middleware: [
+        //                     offset({
+        //                         crossAxis: shiftRightByPx,
+        //                         mainAxis: 7,
+        //                     }),
+        //                     arrow({ element: arrowDiv }),
+        //                     shift(),
+        //                 ]
+        //             }).then(({x, y, placement, middlewareData}) => {
+        //                 Object.assign(tooltipDiv.style, {
+        //                     left: `${x}px`,
+        //                     top: `${y}px`,
+        //                 })
 
-                        const { x: arrowX, y: arrowY } = middlewareData.arrow
+        //                 const { x: arrowX, y: arrowY } = middlewareData.arrow
 
-                        const staticSide = {
-                            top: 'bottom',
-                            right: 'left',
-                            bottom: 'top',
-                            left: 'right',
-                        }[placement.split('-')[0]];
+        //                 const staticSide = {
+        //                     top: 'bottom',
+        //                     right: 'left',
+        //                     bottom: 'top',
+        //                     left: 'right',
+        //                 }[placement.split('-')[0]];
 
-                        Object.assign(arrowDiv.style, {
-                            left: arrowX != null ? `${arrowX}px` : '',
-                            top: arrowY != null ? `${arrowY}px` : '',
-                            right: '',
-                            bottom: '',
-                            [staticSide]: '-4px',
-                        });
-                    })
-                }
+        //                 Object.assign(arrowDiv.style, {
+        //                     left: arrowX != null ? `${arrowX}px` : '',
+        //                     top: arrowY != null ? `${arrowY}px` : '',
+        //                     right: '',
+        //                     bottom: '',
+        //                     [staticSide]: '-4px',
+        //                 });
+        //             })
+        //         }
 
-                const displayTooltip = () => {
-                    setTimeout(() => {
-                        tooltipDivElem.style.display = 'block'
-                        updateAdsInfoTooltip()
-                    }, 200)
-                }
+        //         const displayTooltip = () => {
+        //             setTimeout(() => {
+        //                 tooltipDivElem.style.display = 'block'
+        //                 updateAdsInfoTooltip()
+        //             }, 200)
+        //         }
 
-                const hideTooltip = () => {
-                    setTimeout(() => tooltipDivElem.style.display = 'none', 400)
-                }
+        //         const hideTooltip = () => {
+        //             setTimeout(() => tooltipDivElem.style.display = 'none', 400)
+        //         }
 
-                [
-                    ['mouseenter', displayTooltip],
-                    ['mouseleave', hideTooltip],
-                    ['focus', displayTooltip],
-                    ['blur', hideTooltip],
-                ].forEach(([event, listener]) => {
-                    iconElementRef.value.addEventListener(event, listener);
-                });
-            })
-        }
+        //         [
+        //             ['mouseenter', displayTooltip],
+        //             ['mouseleave', hideTooltip],
+        //             ['focus', displayTooltip],
+        //             ['blur', hideTooltip],
+        //         ].forEach(([event, listener]) => {
+        //             iconElementRef.value.addEventListener(event, listener);
+        //         });
+        //     })
+        // }
 
-        onMounted(() => {
-            initAdsTooltips()
-        })
+        // onMounted(() => {
+        //     initAdsTooltips()
+        // })
 
 
         // Some utilities
@@ -294,17 +258,12 @@ createApp({
 
         return {
             // State
-            recruitmentCostSavingsText,
-            recruitmentCostSavings,
-            retentionSavingsText,
-            retentionSavings,
-            directHireSavingsText,
-            directHireSavings,
-            brandingCostsText,
-            brandingCosts,
-
+            rolesAdvertisedText,
+            rolesAdvertised,
+            rolesFilledText,
+            rolesFilled,
+          
             // Derivations
-            totalBenefits,
             roiValue,
             performanceLevel,
 
@@ -313,19 +272,14 @@ createApp({
 
             // Form validation
             onceSubmittedSuccessfully,
-            numberOfEmployeesInput,
             allValuesFilled,
             onSubmit,
-            recruitmentCostSavingsInput,
-            retentionSavingsInput,
-            directHireSavingsInput,
-            brandingCostsInput,
+            rolesAdvertisedInput,
+            rolesFilledInput,
 
             // Info Tooltip
-            recruitmentCostSavingsInfoIcon,
-            retentionSavingsInfoIcon,
-            directHireSavingsInfoIcon,
-            brandingCostsInfoIcon,
+            // numberofRolesAdvertisedInfoIcon,
+            // numberOfRolesFilledInfoIcon,
         }
     }
 }).mount('#calc-app')
