@@ -309,7 +309,11 @@ body {
 
 #calc-app .cursor-type {
     cursor: text;
+   text-align-last: center;
+    
 }
+
+
 
 #calc-app table input[type=number]::placeholder {
     color: var(--t-black-placeholder);
