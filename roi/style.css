@@ -176,6 +176,16 @@ body {
     #calc-app thead {
         font-size: 14px !important;
     }
+
+    #calc-app th:last-child {
+        text-align: center !important;
+    }
+
+    #calc-app td:last-child, #calc-app th:last-child {
+        text-align: center !important;
+        padding-left: 15px !important;
+        padding-right: 10px !important;
+    }
 }
 
 
@@ -269,9 +279,9 @@ body {
 }
 
 #calc-app td:last-child, #calc-app th:last-child {
-    text-align: center;
-    padding-left: 5px;
-    padding-right: 5px;
+    text-align: left;
+    padding-left: 28px;
+    padding-right: 15px;
 }
 
 #calc-app tbody td:last-child {

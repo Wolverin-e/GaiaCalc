@@ -148,7 +148,19 @@ createApp({
             if(rolesFilled.value === null) return showInvalid(rolesFilledInput.value, rolesFilledInput.value.parentElement)
 
             onceSubmittedSuccessfully.value = true
+            window.history.pushState({ roiFormSubmitted: true }, '') // push a state
         }
+
+        window.history.replaceState({ roiFormSubmitted: false }, '') // set initial state
+
+        // Reset the state
+        window.addEventListener('popstate', () => {
+            if(onceSubmittedSuccessfully.value && window.history.state.roiFormSubmitted === false){
+                onceSubmittedSuccessfully.value = false
+                rolesAdvertisedText.value = ''
+                rolesFilledText.value = ''
+            }
+        })
 
 
         // For info tooltips
