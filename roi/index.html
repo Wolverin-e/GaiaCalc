@@ -68,6 +68,18 @@
     </form>
 
     <div id="results" v-if="onceSubmittedSuccessfully">
+      <div class="progressbar-result">
+        <div class="progressbar-outer">
+          <div class="progressbar-inner" :style="{ 'width': `${Math.min(100, roiValue)}%` }"></div>
+          <div class="progressbar-circle" :style="{ 'left': `${Math.min(100, roiValue)}%` }"></div>
+        </div>
+
+        <div class="progressbar-labels">
+          <span>Weak</span>
+          <span>Excellent</span>
+        </div>
+      </div>
+
       <h2 id="performance-level-heading">
         {{
           performanceLevel ? {
