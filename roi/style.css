@@ -178,12 +178,14 @@ body {
     }
 
     #calc-app th:last-child {
-        text-align: center !important;
+        text-align: left !important;
+        padding-left: 20px !important;
+        padding-right: 10px !important;
     }
 
-    #calc-app td:last-child, #calc-app th:last-child {
+    #calc-app td:last-child {
         text-align: center !important;
-        padding-left: 15px !important;
+        padding-left: 10px !important;
         padding-right: 10px !important;
     }
 }
