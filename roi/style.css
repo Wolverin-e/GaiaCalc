@@ -533,7 +533,7 @@ body {
     box-shadow: 0px 4px 13px 0px #00000021;
 }
 
-.info-tooltip br {
+.info-tooltip br:not(.non-responsive) {
     display: var(--t-tooltip-display);
 }
 
