@@ -9,16 +9,15 @@
     --t-black: rgb(19, 20, 25);
     --t-black-placeholder: rgba(19, 20, 25, 0.65);
     --t-card-stroke: #BCBCBC;
-    --t-font-w-xl: 600;
-    --t-font-w-md: 500;
-    --t-font-w-sm: 300;
     --t-rounded-sm: 10px;
 
+    --t-font-family-book: "F 37 Zagma Book", "F37 Zagma Book", Arial, sans-serif;
     --t-font-family: "F 37 Zagma", "F37 Zagma", Arial, sans-serif;
 }
 
+
 @font-face {
-    font-family: 'F37 Zagma';
+    font-family: 'F37 Zagma Book';
     font-weight: normal;
     font-style: normal;
     src: url('../fonts/F37Zagma-Book.ttf');
@@ -26,7 +25,7 @@
 
 @font-face {
     font-family: 'F37 Zagma';
-    font-weight: 500;
+    font-weight: 400;
     font-style: normal;
     src: url('../fonts/F37Zagma-Regular.otf');
 }
@@ -41,7 +40,7 @@
 
 #calc-app {
     color: var(--t-moss-green);
-    font-family: var(--t-font-family);
+    font-family: var(--t-font-family-book);
 
     display: flex;
     justify-content: center;
@@ -71,7 +70,8 @@
 }
 
 #calc-app thead {
-    font-weight: var(--t-font-w-md);
+    font-family: var(--t-font-family);
+    font-weight: 700;
     font-size: 18px;
 }
 
@@ -99,7 +99,8 @@
 
 
 #calc-app tbody, #calc-app tfoot {
-    font-weight: var(--t-font-w-sm);
+    font-family: var(--t-font-family-book);
+    font-weight: normal;
     font-size: 16px;
 }
 
@@ -134,12 +135,12 @@
 }
 
 #calc-app tfoot td:last-child {
-    font-weight: var(--t-font-w-xl);
+    font-weight: 700;
     color: var(--t-black);
 }
 
 #calc-app table input, #calc-app table select {
-    font-family: var(--t-font-family);
+    font-family: var(--t-font-family-book);
     /* To make fonts look similar to figma */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -152,6 +153,7 @@
     outline-offset: 3px;
 
     /* min-width: 100px; */
+    box-sizing: content-box;
 
     font-size: 16px;
 }
@@ -220,7 +222,7 @@
     cursor: pointer;
 
     font-family: var(--t-font-family);
-    font-weight: 500 !important;
+    font-weight: 400 !important;
     font-size: 18px;
 
     transition: background-color, transform;
@@ -246,7 +248,7 @@
     cursor: pointer;
 
     font-family: var(--t-font-family);
-    font-weight: 500 !important;
+    font-weight: 400 !important;
     font-size: 20px;
     text-decoration: none;
 
@@ -280,7 +282,7 @@
     padding: 5px;
     border-radius: 4px;
 
-    font-family: var(--t-font-family);
+    font-family: var(--t-font-family-book);
     font-size: 90%;
 }
 
